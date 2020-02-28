@@ -1,12 +1,14 @@
-class toDoList {
-  constructor(id, title, tasks, urgent) {
+class ToDoList {
+  constructor(id, title, tasks) {
     this.id = id;
     this.title = title;
     this.tasks = []; //each task in an array is an object
-    this.urgent = urgent; //boolean value
+    this.urgent = false;
   }
   saveToStorage() {
-
+    // save instance of toDoList to local storage
+    JSON.stringify(this);
+    //save to local storage
   }
   deleteFromStorage() {
     // if removeToDoVard() passes all conditions remove todo , update this.tasks
