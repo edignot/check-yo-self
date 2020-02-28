@@ -12,7 +12,6 @@
   --urgent-card-background: #ffe89d;
   --urgent-card-border: #ffc30c;
   --urgent-card-accent: #b23a25;
-
   --border-radius: 5px;
 }
 
@@ -28,6 +27,14 @@ body,
 html {
   height: 100%;
   background-color: var(--main-light);
+}
+
+.img {
+  width: 20px;
+}
+
+.hide {
+  display: none;
 }
 
 /* --------------------- */
@@ -107,8 +114,8 @@ html {
 .task-title-container,
 .task-item-container {
   color: var(--card-border);
-
 }
+
 .input {
   padding: 12px;
   width: 100%;
@@ -145,12 +152,12 @@ html {
   border: 0px;
   border-radius: var(--border-radius);
 }
+
 .add-task-btn:hover,
 .btn:hover {
   background-color: var(--accent);
   transition: background-color 1s;
 }
-
 
 /* --------------------- */
 /* ----- Tasks ----- */
@@ -161,4 +168,84 @@ html {
   font-size: 400%;
   text-align: center;
   color: var(--card-border)
+}
+
+/* ----- Task Card Container ----- */
+.task-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.task-card-container {
+  width: 42%;
+  min-height: 200px;
+  height: auto;
+  background-color: var(--card-background);
+  color: var(--main-dark);
+  border: 2px solid var(--card-border);
+}
+
+.task-card-container-urgent {
+  background-color: var(--urgent-card-background);
+  border: 2px solid var(--urgent-card-border);
+}
+
+/* ----- Task Title ----- */
+.task-card-title {
+  margin: 0;
+  padding: 10px;
+  font-size: 120%;
+  font-weight: 700;
+  border-bottom: 2px solid var(--card-border);
+}
+
+.task-card-title-urgent {
+  border-bottom: 2px solid var(--urgent-card-border);
+}
+
+/* ----- Task List ----- */
+.task-list-wrapper {
+  padding: 10px;
+}
+
+.task-list-item {
+  display: flex;
+}
+
+.checkbox-img {
+  margin-right: 20px;
+}
+
+/* ----- Task Card Footer ----- */
+.task-card-footer {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  font-size: 50%;
+  border-top: 2px solid var(--card-border);
+
+}
+
+.task-list-footer-urgent {
+  border-top: 2px solid var(--urgent-card-border);
+}
+
+.delete-img-wrapper,
+.urgent-img-wrapper {
+  text-align: center;
+}
+
+.delete-img {
+  width: 16px;
+}
+
+.urgent-text,
+.delete-text,
+.urgent-active-text {
+  margin: 0;
+}
+
+.urgent-active-text {
+  color: var(--urgent-card-accent);
 }
