@@ -1,5 +1,7 @@
 class Task {
-  constructor() {
-    
+  constructor(text) {
+    this.checked = false;
+    this.text = text;
+
   }
 }
