@@ -7,7 +7,22 @@ function displayToDo() {
 }
 
 function addTask() {
-  //display tasks between two inputs
+  //add task to the dom
+
+
+
+}
+
+function makeList() {
+  // create id counter++
+  // get Title queryselector
+  // get tasks queryselector array of strings
+  // loop through array of tasks and creating new instances of a task
+
+
+  var toDoList = new ToDoList(id, title, tasks//array of objects);
+  toDoList.saveToStorage();
+  //display to the dom
 }
 
 function removeTask() {
@@ -25,5 +40,5 @@ function removeToDoCard() {
 function makeToDoUrgent() {
   // when user clicks on urgent button
   // update todo-list urgent
-  // update card in a dom 
+  // update card styling in a dom
 }
