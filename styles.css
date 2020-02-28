@@ -1,0 +1,164 @@
+/* ----- Variables ----- */
+:root {
+  --main-dark: #1f1f3d;
+  --main-medium: #587a8a;
+  --main-light: #f3f6f7;
+  --main-font: #fff;
+  --accent: #ffc30c;
+  --urgent: #ef4a23;
+  --card-background: #fafdff;
+  --card-font: #3c6577;
+  --card-border: #c7d3d8;
+  --urgent-card-background: #ffe89d;
+  --urgent-card-border: #ffc30c;
+  --urgent-card-accent: #b23a25;
+
+  --border-radius: 5px;
+}
+
+/* --------------------- */
+/* ----- Basic Setup ----- */
+/* --------------------- */
+* {
+  box-sizing: border-box;
+  font-family: Lato, Arial, sans-serif;
+}
+
+body,
+html {
+  height: 100%;
+  background-color: var(--main-light);
+}
+
+/* --------------------- */
+/* ----- Header ----- */
+/* --------------------- */
+.header-container {
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  padding: 20px;
+  justify-content: space-between;
+  background-color: var(--main-dark);
+  color: var(--main-font);
+  text-transform: uppercase;
+}
+
+.title-accent {
+  color: var(--accent);
+}
+
+.search-bar-wrapper {
+  display: flex;
+  padding: 20px;
+}
+
+.search-btn {
+  background-color: var(--card-border);
+  width: 45px;
+  border-radius: 5px 0 0 5px;
+}
+
+.search-input {
+  padding: 12px;
+  border-radius: 0 5px 5px 0;
+}
+
+/* --------------------- */
+/* ----- Main ----- */
+/* --------------------- */
+.main-page-container {
+  display: flex;
+  width: 100%;
+}
+
+.task-form-container,
+.task-display-container {
+  min-height: 90vh;
+}
+
+.task-form-container {
+  width: 30%;
+  background-color: var(--main-medium);
+}
+
+.task-display-container {
+  width: 70%;
+  background-color: var(--main-light);
+}
+
+/* --------------------- */
+/* ----- Form ----- */
+/* --------------------- */
+.form-container,
+.task-title-container,
+.task-item-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-title-container,
+.task-item-container,
+.btn {
+  margin: 20px;
+}
+
+/* ----- Inputs ----- */
+.task-title-container,
+.task-item-container {
+  color: var(--card-border);
+
+}
+.input {
+  padding: 12px;
+  width: 100%;
+  border: 2px solid var(--main-dark);
+  border-radius: var(--border-radius);
+}
+
+.task-item-input {
+  border-radius: 5px 0 0 5px;
+}
+
+.task-input-btn-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+/* ----- Buttons ----- */
+.add-task-btn {
+  background-color: var(--main-dark);
+  color: var(--main-font);
+  font-weight: 700;
+  font-size: 120%;
+  border: 0px;
+  padding: 0 20px;
+  border-radius: 0 5px 5px 0;
+}
+
+.btn {
+  padding: 15px;
+  background-color: var(--main-dark);
+  color: var(--main-font);
+  font-weight: 700;
+  font-size: 120%;
+  border: 0px;
+  border-radius: var(--border-radius);
+}
+.add-task-btn:hover,
+.btn:hover {
+  background-color: var(--accent);
+  transition: background-color 1s;
+}
+
+
+/* --------------------- */
+/* ----- Tasks ----- */
+/* --------------------- */
+
+/* ----- Create New Task Message ----- */
+.create-new-task-message {
+  font-size: 400%;
+  text-align: center;
+  color: var(--card-border)
+}
