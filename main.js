@@ -11,7 +11,7 @@ var filterUrgencyBtn = document.querySelector('.filter-urgency-btn');
 var taskCardsContainer = document.querySelector('.task-cards-container');
 var tasksArray = [];
 
-// window.onload = displayToDo();
+// window.onload = displayAllToDo();
 body.addEventListener('click', clickHandler);
 newTaskContainer.addEventListener('click', removeNewTask);
 
@@ -33,7 +33,6 @@ function clickHandler(event) {
   }
 }
 
-// CREATE TASK ANT DISPLAY ON THE DOM, SAVE
 function createTaskInstance() {
   if (taskItemInput.value !== '') {
     var task = {
@@ -51,7 +50,7 @@ function displayNewTask(task) {
     var taskItemId = task.id;
     var taskItem = getTaskInputValue();
     newTaskContainer.insertAdjacentHTML('beforeend', `
-  <div class="task-list-item new-list-item">
+  <div class="task-list-item new-list-item" id="${taskItemId}">
     <img src="img/delete.svg" alt="checkbox" class="checkbox-img img" id="${taskItemId}">
     <p>${taskItem}</p>
   </div>
@@ -70,7 +69,13 @@ function saveTaskInstance(task) {
 }
 
 function removeNewTask(event) {
-  event.target.closest('div').remove();
+  if (event.target.classList.contains('checkbox-img')) {
+    var clickedId = event.target.id;
+    var obj = tasksArray.find(obj => obj.id == clickedId);
+    var removeId =  tasksArray.indexOf(obj);
+    tasksArray.splice(removeId, 1);
+    event.target.closest('div').remove();
+  }
 }
 
 function clearAllInputs() {
@@ -83,8 +88,12 @@ function clearAllInputs() {
 function createToDoList() {
   if (taskTitleInput.value !== '' && tasksArray.length > 0) {
     displayToDoList();
-    saveToDoList();
+    // saveToDoList();
     clearAllInputs();
+  } else if (taskTitleInput.value === '') {
+    alert('Add Title');
+  } else if (tasksArray.length === 0) {
+    alert('Add Task Item');
   }
 }
 

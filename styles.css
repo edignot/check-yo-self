@@ -185,11 +185,12 @@ html {
 
 .task-card-container {
   width: 42%;
-  min-height: 200px;
+  min-height: 160px;
   height: auto;
   background-color: var(--card-background);
   color: var(--main-dark);
   border: 2px solid var(--card-border);
+  /* margin-bottom: 50px; */
 }
 
 .task-card-container-urgent {
@@ -241,7 +242,6 @@ html {
   justify-content: space-between;
   font-size: 50%;
   border-top: 2px solid var(--card-border);
-
 }
 
 .task-list-footer-urgent {
