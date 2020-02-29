@@ -27,6 +27,7 @@ body,
 html {
   height: 100%;
   background-color: var(--main-light);
+  outline: none;
 }
 
 .img {
@@ -64,11 +65,13 @@ html {
   background-color: var(--card-border);
   width: 45px;
   border-radius: 5px 0 0 5px;
+  outline: none;
 }
 
 .search-input {
   padding: 12px;
   border-radius: 0 5px 5px 0;
+  outline: none;
 }
 
 /* --------------------- */
@@ -121,6 +124,7 @@ html {
   width: 100%;
   border: 2px solid var(--main-dark);
   border-radius: var(--border-radius);
+  outline: none;
 }
 
 .task-item-input {
@@ -141,6 +145,7 @@ html {
   border: 0px;
   padding: 0 20px;
   border-radius: 0 5px 5px 0;
+  outline: none;
 }
 
 .btn {
@@ -151,6 +156,7 @@ html {
   font-size: 120%;
   border: 0px;
   border-radius: var(--border-radius);
+  outline: none;
 }
 
 .add-task-btn:hover,
@@ -213,8 +219,19 @@ html {
   display: flex;
 }
 
+.new-list-item {
+  margin-left: 20px;
+  color: var(--main-font);
+}
+
 .checkbox-img {
   margin-right: 20px;
+  opacity: 0.5;
+}
+
+.checkbox-img:hover {
+  opacity: 1;
+  transition: opacity .5s;
 }
 
 /* ----- Task Card Footer ----- */
