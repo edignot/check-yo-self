@@ -6,12 +6,16 @@ class ToDoList {
     this.urgent = false;
   }
   saveToStorage() {
-    // save instance of toDoList to local storage
-    JSON.stringify(this);
-    //save to local storage
+    var newToDo =  {
+      id: this.id,
+      title: this.title,
+      urgent: this.urgent,
+      tasks: this.tasks,
+    };
+    window.localStorage.setItem(this.id, JSON.stringify(newToDo));
   }
   deleteFromStorage() {
-    // if removeToDoVard() passes all conditions remove todo , update this.tasks
+    window.localStorage.removeItem(this.id);
   }
 
   updateToDo() {
