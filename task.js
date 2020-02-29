@@ -1,7 +1,7 @@
-class Task {
-  constructor(text) {
-    this.checked = false;
-    this.text = text;
-
-  }
-}
+// class Task {
+//   constructor(text, id) {
+//     this.checked = false;
+//     this.text = text;
+//     this.id = id;
+//   }
+// }

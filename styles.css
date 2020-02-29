@@ -213,6 +213,11 @@ html {
   display: flex;
 }
 
+.new-list-item {
+  margin-left: 20px;
+  color: var(--main-font);
+}
+
 .checkbox-img {
   margin-right: 20px;
 }
