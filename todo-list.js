@@ -5,11 +5,17 @@ class ToDoList {
     this.tasks = tasks;
     this.urgent = false;
   }
+
   saveToStorage(toDo) {
-    window.localStorage.setItem(this.id, JSON.stringify(toDo));
+    var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+    toDoArray.push(toDo);
+    localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
   }
-  deleteFromStorage() {
-    window.localStorage.removeItem(this.id);
+
+  deleteFromStorage(index) {
+    // var toDoArray = JSON.parse(localStorage.getItem('toDoArray'))
+    // toDoArray.splice(index, 1);
+    // localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
   }
 
   updateToDo() {
@@ -17,7 +23,6 @@ class ToDoList {
   }
 
   updateTask() {
-    //should update a task’s content and if it has been completed
-    // The update of the data model should occur in the updateTask method that is defined in the ToDoList class.
+    //update a task’s content and if it has been completed
   }
 }
