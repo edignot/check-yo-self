@@ -274,3 +274,7 @@ html {
   font-style: italic;
   color: var(--card-font);
 }
+
+button:disabled {
+  opacity: 0.5;
+}
