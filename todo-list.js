@@ -2,17 +2,11 @@ class ToDoList {
   constructor(id, title, tasks) {
     this.id = id;
     this.title = title;
-    this.tasks = []; //each task in an array is an object
+    this.tasks = tasks;
     this.urgent = false;
   }
-  saveToStorage() {
-    var newToDo =  {
-      id: this.id,
-      title: this.title,
-      urgent: this.urgent,
-      tasks: this.tasks,
-    };
-    window.localStorage.setItem(this.id, JSON.stringify(newToDo));
+  saveToStorage(toDo) {
+    window.localStorage.setItem(this.id, JSON.stringify(toDo));
   }
   deleteFromStorage() {
     window.localStorage.removeItem(this.id);

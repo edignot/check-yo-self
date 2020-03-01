@@ -9,13 +9,19 @@ var makeTaskListBtn = document.querySelector('.make-task-list-btn');
 var clearAllBtn = document.querySelector('.clear-all-btn btn');
 var filterUrgencyBtn = document.querySelector('.filter-urgency-btn');
 var taskCardsContainer = document.querySelector('.task-cards-container');
+var taskDisplayContainer = document.querySelector('.task-display-container');
 var tasksArray = [];
 
-// window.onload = displayAllToDo();
-body.addEventListener('click', clickHandler);
+window.addEventListener('load', pageLoadDisplay);
+body.addEventListener('click', buttonClickHandler);
 newTaskContainer.addEventListener('click', removeNewTask);
 
-function clickHandler(event) {
+function pageLoadDisplay() {
+  // displayToDoList();
+  displayMessage();
+}
+
+function buttonClickHandler(event) {
   if (event.target.closest('.add-task-btn')) {
     createTaskInstance();
   }
@@ -33,6 +39,14 @@ function clickHandler(event) {
   }
 }
 
+function displayMessage() {
+  // add condition if there are no other notes to display
+  taskDisplayContainer.insertAdjacentHTML('afterbegin', `
+    <p class="create-new-task-message">Nothing to Display.</br> Create New Task!</p>
+  `);
+}
+
+////////////////////////////////////////////////////////////////////////////////////
 function createTaskInstance() {
   if (taskItemInput.value !== '') {
     var task = {
@@ -45,10 +59,14 @@ function createTaskInstance() {
   }
 }
 
+function saveTaskInstance(task) {
+  tasksArray.push(task);
+}
+
 function displayNewTask(task) {
   if (taskItemInput.value !== '') {
     var taskItemId = task.id;
-    var taskItem = getTaskInputValue();
+    var taskItem = taskItemInput.value;
     newTaskContainer.insertAdjacentHTML('beforeend', `
   <div class="task-list-item new-list-item" id="${taskItemId}">
     <img src="img/delete.svg" alt="checkbox" class="checkbox-img img" id="${taskItemId}">
@@ -60,19 +78,11 @@ function displayNewTask(task) {
   }
 }
 
-function getTaskInputValue() {
-  return taskItemInput.value;
-}
-
-function saveTaskInstance(task) {
-  tasksArray.push(task);
-}
-
 function removeNewTask(event) {
   if (event.target.classList.contains('checkbox-img')) {
     var clickedId = event.target.id;
     var obj = tasksArray.find(obj => obj.id == clickedId);
-    var removeId =  tasksArray.indexOf(obj);
+    var removeId = tasksArray.indexOf(obj);
     tasksArray.splice(removeId, 1);
     event.target.closest('div').remove();
   }
@@ -82,13 +92,13 @@ function clearAllInputs() {
   taskTitleInput.value = '';
   taskItemInput.value = '';
   newTaskContainer.innerText = '';
-  var tasksArray = [];
+  tasksArray = [];
 }
-
+////////////////////////////////////////////////////////////////////////////////////
 function createToDoList() {
   if (taskTitleInput.value !== '' && tasksArray.length > 0) {
+    saveToDoList();
     displayToDoList();
-    // saveToDoList();
     clearAllInputs();
   } else if (taskTitleInput.value === '') {
     alert('Add Title');
@@ -97,16 +107,22 @@ function createToDoList() {
   }
 }
 
+function saveToDoList() {
+  debugger;
+  var id = Date.now();
+  var title = taskTitleInput.value;
+  var tasks = tasksArray;
+  var toDo = new ToDoList(id, title, tasks);
+  toDo.saveToStorage(toDo);
+}
+
 function displayToDoList() {
-  var titleItem = getTitleInputValue();
+  var titleItem = taskTitleInput.value;
   taskCardsContainer.insertAdjacentHTML('beforeend', `
 <div class="task-card-container">
   <p class="task-card-title">${titleItem}</p>
-  <div class="task-list-wrapper">
-    <div class="task-list-item">
-      <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
-      <p>${tasksArray}</p>
-    </div>
+  <div class="task-list-wrapper" id="${titleItem}">
+
   </div>
   <div class="task-card-footer">
     <div class="urgent-img-wrapper">
@@ -120,22 +136,14 @@ function displayToDoList() {
   </div>
 </div>
 `);
+  var taskItem = document.querySelector(`#${titleItem}`);
+  for (var i = 0; i < tasksArray.length; i++) {
+    taskItem.innerHTML += `
+    <div class="task-list-item" id="${tasksArray[i].id}">
+      <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img" id="${tasksArray[i].id}">
+      <p>${tasksArray[i].text}</p>
+    </div>
+    `;
+  }
+  clearAllInputs();
 }
-
-function getTitleInputValue() {
-  return taskTitleInput.value;
-}
-
-
-// function saveToDoList() {
-//   // create id counter++
-//   // get Title queryselector
-//   // get tasks queryselector array of strings
-//   // loop through array of tasks and creating new instances of a task
-//
-//
-//   var toDoList = new ToDoList(id, title, tasks) //array of objects);
-//   toDoList.saveToStorage();
-//   //display to the dom
-// }
-//

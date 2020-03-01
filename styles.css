@@ -190,7 +190,7 @@ html {
   background-color: var(--card-background);
   color: var(--main-dark);
   border: 2px solid var(--card-border);
-  /* margin-bottom: 50px; */
+  margin-bottom: 50px;
 }
 
 .task-card-container-urgent {
