@@ -34,10 +34,6 @@ html {
   width: 20px;
 }
 
-.hide {
-  display: none;
-}
-
 /* --------------------- */
 /* ----- Header ----- */
 /* --------------------- */
@@ -185,11 +181,12 @@ html {
 
 .task-card-container {
   width: 42%;
-  min-height: 200px;
+  min-height: 160px;
   height: auto;
   background-color: var(--card-background);
   color: var(--main-dark);
   border: 2px solid var(--card-border);
+  margin: 30px;
 }
 
 .task-card-container-urgent {
@@ -238,10 +235,10 @@ html {
 .task-card-footer {
   display: flex;
   padding: 10px;
+
   justify-content: space-between;
   font-size: 50%;
   border-top: 2px solid var(--card-border);
-
 }
 
 .task-list-footer-urgent {
@@ -265,4 +262,15 @@ html {
 
 .urgent-active-text {
   color: var(--urgent-card-accent);
+}
+
+/* --------------------- */
+/* ----- Helper ----- */
+/* --------------------- */
+.hide {
+  display: none;
+}
+.checked-text {
+  font-style: italic;
+  color: var(--card-font);
 }
