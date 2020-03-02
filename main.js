@@ -17,16 +17,11 @@ body.addEventListener('input', buttonStatusHandler);
 body.addEventListener('click', buttonClickHandler);
 
 function pageLoadDisplay() {
-  // displayToDoList();
+  displayAllToDo();
   displayMessage();
 }
 
-function displayMessage() {
-  if (taskCardsContainer.innerText === '') {
-    createTaskMessage.classList.remove('hide');
-  }
-}
-
+// ---------------------------------------- BUTTON STATUS HANDLER ----------------------------------------
 function buttonStatusHandler() {
   if (taskItemInput.value !== '') {
     addTaskBtn.removeAttribute('disabled', 'disabled');
@@ -45,6 +40,7 @@ function buttonStatusHandler() {
   }
 }
 
+// ---------------------------------------- BUTTON CLICK HANDLER ----------------------------------------
 function buttonClickHandler(event) {
   if (event.target.closest('.search-btn')) {
     alert('search');
@@ -91,7 +87,25 @@ function buttonClickHandler(event) {
     makeToDoUrgentDom(event);
   }
 }
+// ---------------------------------------- DISPLAY TODO OR MESSAGE ----------------------------------------
+function displayAllToDo() {
+  debugger
+  if (localStorage.getItem('toDoArray')) {
+    var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+    for (var i = 0; i < toDoArray.length; i++) {
+      var toDoList = new ToDoList(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent);
+      console.log(toDoList);
+      displayToDoList(toDoList);
+    }
+  }
+}
 
+function displayMessage() {
+  if (taskCardsContainer.innerText === '') {
+    createTaskMessage.classList.remove('hide');
+  }
+}
+// ---------------------------------------- CLEAR ALL INPUTS ----------------------------------------
 function clearAllInputs() {
   taskTitleInput.value = '';
   taskItemInput.value = '';
@@ -99,7 +113,7 @@ function clearAllInputs() {
   toDoList.tasks = [];
   buttonStatusHandler();
 }
-
+// ---------------------------------------- CREATE TASK INSTANCE/ DISPLAY/ REMOVE TASK --------------------------------
 function createTaskInstance() {
   if (taskItemInput.value !== '') {
     var task = new Task(taskItemInput.value);
@@ -128,7 +142,7 @@ function removeTaskDisplay(event) {
     event.target.closest('div').remove();
   }
 }
-
+// ---------------------------------------- SAVE / DISPLAY TODO ----------------------------------------
 function saveToDoList() {
   createToDoArray();
   toDoList.saveToStorage(toDoList);
@@ -140,7 +154,7 @@ function createToDoArray() {
   }
 }
 
-function displayToDoList() {
+function displayToDoList(toDoList) {
   createTaskMessage.classList.add('hide');
   taskCardsContainer.insertAdjacentHTML('afterbegin', `
 <section class="task-card-container">
@@ -172,9 +186,8 @@ function displayToDoList() {
   clearAllInputs();
   toDoList = new ToDoList();
 }
-
+// ---------------------------------------- CHECK TASK ----------------------------------------
 function checkTaskData(event) {
-  debugger;
   var clickedId = event.target.closest('div').id;
   var toDoId = event.target.closest('.task-list-wrapper').id;
   var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
@@ -199,6 +212,7 @@ function checkTaskDom(event) {
   }
 }
 
+// ---------------------------------------- REMOVE TASK ----------------------------------------
 function removeToDoData(event) {
   var removeToDoId = event.target.closest('.task-card-footer').id;
   toDoList.deleteFromStorage(removeToDoId);
@@ -209,6 +223,7 @@ function removeToDoDom(event) {
   displayMessage();
 }
 
+// ---------------------------------------- TODO URGENT ----------------------------------------
 // function makeToDoUrgentData(event) {
 //
 // }
