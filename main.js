@@ -110,7 +110,6 @@ function createTaskInstance() {
 }
 
 function displayNewTask(task) {
-  debugger;
   newTaskContainer.insertAdjacentHTML('beforeend', `
   <div class="task-list-item new-list-item" id="${task.id}">
     <img src="img/delete.svg" alt="delete" class="delete-img img" id="${task.id}">
@@ -127,6 +126,17 @@ function removeTaskDisplay(event) {
     var removeId = toDoList.tasks.indexOf(removeTask);
     toDoList.tasks.splice(removeId, 1);
     event.target.closest('div').remove();
+  }
+}
+
+function saveToDoList() {
+  createToDoArray();
+  toDoList.saveToStorage(toDoList);
+}
+
+function createToDoArray() {
+  if (!localStorage.getItem('toDoArray')) {
+    localStorage.setItem('toDoArray', JSON.stringify([]));
   }
 }
 
@@ -158,12 +168,25 @@ function displayToDoList() {
   </div>
   `;
   }
+
   clearAllInputs();
   toDoList = new ToDoList();
 }
 
-// function checkTaskData() {
-//   var clickedId = event.target.id;
+// function checkTaskData(event) {
+//   debugger;
+//   var clickedId = event.target.closest('div').id;
+//   var toDoId = event.target.closest('.task-list-wrapper').id;
+//   var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+//   for (var i = 0; i < toDoArray.length; i++) {
+//     if (toDoArray[i].id == toDoId) {
+//       for (var i = 0; i < toDoArray[i].tasks.length; i++) {
+//         if (toDoArray[i].tasks[i].id == clickedId) {
+//           toDoArray[i].tasks[i].checked = true;
+//         }
+//       }
+//     }
+//   }
 // }
 
 function checkTaskDom(event) {
