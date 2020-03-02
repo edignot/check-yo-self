@@ -274,7 +274,8 @@ html {
 }
 .checked-text {
   font-style: italic;
-  color: var(--card-font);
+  color: var(--urgent-card-border);
+  text-decoration: line-through;
 }
 
 button:disabled {
