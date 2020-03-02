@@ -21,11 +21,11 @@ class ToDoList {
   }
 
   deleteFromStorage(index) {
-    // remove todo from dom when all tasks are checked
-
-    // var toDoArray = JSON.parse(localStorage.getItem('toDoArray'))
-    // toDoArray.splice(index, 1);
-    // localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
+    var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+    var toDoToDelete = toDoArray.find(toDoToDelete => toDoToDelete.id == index);
+    var removeToDoId = toDoArray.indexOf(toDoToDelete);
+    toDoArray.splice(removeToDoId, 1);
+    localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
   }
 
   updateToDo() {
