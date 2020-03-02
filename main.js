@@ -15,8 +15,6 @@ var toDoList = new ToDoList();
 window.addEventListener('load', pageLoadDisplay);
 body.addEventListener('input', buttonStatusHandler);
 body.addEventListener('click', buttonClickHandler);
-newTaskContainer.addEventListener('click', removeTaskDisplay);
-taskCardsContainer.addEventListener('click', toDoClickHandler);
 
 function pageLoadDisplay() {
   // displayToDoList();
@@ -24,8 +22,9 @@ function pageLoadDisplay() {
 }
 
 function displayMessage() {
-  // if no todo to display, then display message
-  createTaskMessage.classList.remove('hide');
+  if (taskCardsContainer.innerText === '') {
+    createTaskMessage.classList.remove('hide');
+  }
 }
 
 function buttonStatusHandler() {
@@ -58,6 +57,7 @@ function buttonClickHandler(event) {
 
   if (event.target.closest('.make-task-list-btn')) {
     toDoList.updateTitle();
+    saveToDoList();
     displayToDoList();
     makeTaskListBtn.setAttribute('disabled', 'disabled');
   }
@@ -71,16 +71,25 @@ function buttonClickHandler(event) {
   if (event.target.closest('.filter-urgency-btn')) {
     alert('filter by urgency');
   }
-}
 
-function toDoClickHandler() {
   if (event.target.classList.contains('delete-img')) {
     removeTaskDisplay(event);
   }
 
-  // if (event.target.classList.contains('checkbox-img')) {
-  //   checkTaskDom(event);
-  // }
+  if (event.target.classList.contains('checkbox-img')) {
+    // checkTaskData(event);
+    checkTaskDom(event);
+  }
+
+  if (event.target.classList.contains('delete-todo-img')) {
+    // removeToDoData(event);
+    removeToDoDom(event);
+  }
+
+  if (event.target.classList.contains('urgent-img')) {
+    // makeToDoUrgentData(event);
+    makeToDoUrgentDom(event);
+  }
 }
 
 function clearAllInputs() {
@@ -92,15 +101,16 @@ function clearAllInputs() {
 }
 
 function createTaskInstance() {
-  debugger;
   if (taskItemInput.value !== '') {
     var task = new Task(taskItemInput.value);
   }
+
   toDoList.updateTaskArray(task);
   displayNewTask(task);
 }
 
 function displayNewTask(task) {
+  debugger;
   newTaskContainer.insertAdjacentHTML('beforeend', `
   <div class="task-list-item new-list-item" id="${task.id}">
     <img src="img/delete.svg" alt="delete" class="delete-img img" id="${task.id}">
@@ -122,7 +132,7 @@ function removeTaskDisplay(event) {
 
 function displayToDoList() {
   createTaskMessage.classList.add('hide');
-  taskCardsContainer.insertAdjacentHTML('beforeend', `
+  taskCardsContainer.insertAdjacentHTML('afterbegin', `
 <section class="task-card-container">
   <p class="task-card-title">${toDoList.title}</p>
   <div class="task-list-wrapper" id="${toDoList.id}">
@@ -133,7 +143,7 @@ function displayToDoList() {
       <p class="urgent-text">URGENT</p>
     </div>
     <div class="delete-img-wrapper">
-      <img src="img/delete.svg" alt="delete" class="delete-img img">
+      <img src="img/delete.svg" alt="delete" class="delete-todo-img img">
       <p class="delete-text">DELETE</p>
     </div>
   </div>
@@ -142,7 +152,7 @@ function displayToDoList() {
   var taskItem = document.getElementById(`${toDoList.id}`);
   for (var i = 0; i < toDoList.tasks.length; i++) {
     taskItem.innerHTML += `
-  <div class="task-list-item">
+  <div class="task-list-item" id="${toDoList.tasks[i].id}">
     <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
     <p>${toDoList.tasks[i].title}</p>
   </div>
@@ -152,76 +162,41 @@ function displayToDoList() {
   toDoList = new ToDoList();
 }
 
-
-
-
-
-
-
-
-
-
-
-// function checkTaskDom(event) {
-//   event.target.closest('div').classList.add('checked-text');
-//   event.target.classList.add('hide');
-//   event.target.nextSibling.classList.remove('hide');
+// function checkTaskData() {
+//   var clickedId = event.target.id;
 // }
+
+function checkTaskDom(event) {
+  if (!event.target.closest('div').classList.contains('checked-text')) {
+    event.target.closest('div').classList.add('checked-text');
+    event.target.setAttribute('src', 'img/checkbox-active.svg');
+  } else if (event.target.closest('div').classList.contains('checked-text')) {
+    event.target.closest('div').classList.remove('checked-text');
+    event.target.setAttribute('src', 'img/checkbox.svg');
+  }
+}
+
+// function removeToDoData(event) {
 //
-// function deleteTaskDom(event) {
-//   event.target.closest('.task-card-container').remove();
 // }
 
+function removeToDoDom(event) {
+  event.target.closest('section').remove();
+  displayMessage();
+}
 
-// function createToDoList() {
-//   if (taskTitleInput.value !== '' && tasksArray.length > 0) {
-//     createTasksArray();
-//     // saveToDoList();
-//     displayToDoList();
-//     clearAllInputs();
-//   } else if (taskTitleInput.value === '') {
-//     alert('Add Title');
-//   } else if (tasksArray.length === 0) {
-//     alert('Add Task Item');
-//   }
-// }
+// function makeToDoUrgentData(event) {
 //
-// function createTasksArray() {
-//   if (!localStorage.getItem('toDoArray')) {
-//     localStorage.setItem('toDoArray', JSON.stringify([]));
-//   }
 // }
 
-// function saveToDoList() {
-//   var id = Date.now();
-//   var title = taskTitleInput.value;
-//   var tasks = tasksArray;
-//   var toDo = new ToDoList(id, title, tasks);
-//   toDo.saveToStorage(toDo);
-// }
-
-
-// <div class="task-card-container task-card-container-urgent">
-//   <p class="task-card-title task-card-title-urgent">Task Title</p>
-//   <div class="task-list-wrapper task-list-wrapper-urgent">
-//     <div class="task-list-item">
-//       <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
-//       <p>Your task here!</p>
-//     </div>
-//     <div class="task-list-item">
-//       <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
-//       <p>Your task here!</p>
-//     </div>
-//   </div>
-//   <div class="task-card-footer task-list-footer-urgent">
-//     <div class="urgent-img-wrapper">
-//       <img src="img/urgent.svg" alt="urgent" class="urgent-img img hide">
-//       <img src="img/urgent-active.svg" alt="urgent active" class="urgent-active-img img">
-//       <p class="urgent-active-text">URGENT</p>
-//     </div>
-//     <div class="delete-img-wrapper">
-//       <img src="img/delete.svg" alt="delete" class="delete-img img">
-//       <p class="delete-text">DELETE</p>
-//     </div>
-//   </div>
-// </div>
+function makeToDoUrgentDom(event) {
+  if (!event.target.closest('section').classList.contains('task-card-container-urgent')) {
+    event.target.closest('section').classList.add('task-card-container-urgent');
+    event.target.setAttribute('src', 'img/urgent-active.svg');
+    event.target.closest('.task-card-footer').classList.add('task-list-footer-urgent');
+  } else if (event.target.closest('section').classList.contains('task-card-container-urgent')) {
+    event.target.closest('section').classList.remove('task-card-container-urgent');
+    event.target.setAttribute('src', 'img/urgent.svg');
+    event.target.closest('.task-card-footer').classList.remove('task-list-footer-urgent');
+  }
+}
