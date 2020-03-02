@@ -221,12 +221,14 @@ html {
   color: var(--main-font);
 }
 
-.checkbox-img {
+.checkbox-img,
+.delete-img {
   margin-right: 20px;
   opacity: 0.5;
 }
 
-.checkbox-img:hover {
+.checkbox-img:hover,
+.delete-img:hover {
   opacity: 1;
   transition: opacity .5s;
 }
@@ -273,4 +275,8 @@ html {
 .checked-text {
   font-style: italic;
   color: var(--card-font);
+}
+
+button:disabled {
+  opacity: 0.5;
 }
