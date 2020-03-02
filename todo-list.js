@@ -21,16 +21,18 @@ class ToDoList {
   }
 
   deleteFromStorage(index) {
+    // remove todo from dom when all tasks are checked
+
     // var toDoArray = JSON.parse(localStorage.getItem('toDoArray'))
     // toDoArray.splice(index, 1);
     // localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
   }
 
   updateToDo() {
-    //should update the todo’s title and urgency)
+    //this.urgent true or false
   }
 
   updateTask() {
-    //update a task’s content and if it has been completed
+    // update if each task is checked true or false
   }
 }
