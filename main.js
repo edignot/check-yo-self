@@ -77,12 +77,12 @@ function buttonClickHandler(event) {
   }
 
   if (event.target.classList.contains('checkbox-img')) {
-    // checkTaskData(event);
+    checkTaskData(event);
     checkTaskDom(event);
   }
 
   if (event.target.classList.contains('delete-todo-img')) {
-    // removeToDoData(event);
+    removeToDoData(event);
     removeToDoDom(event);
   }
 
@@ -147,7 +147,7 @@ function displayToDoList() {
   <p class="task-card-title">${toDoList.title}</p>
   <div class="task-list-wrapper" id="${toDoList.id}">
   </div>
-  <div class="task-card-footer">
+  <div class="task-card-footer" id="${toDoList.id}">
     <div class="urgent-img-wrapper">
       <img src="img/urgent.svg" alt="urgent" class="urgent-img img">
       <p class="urgent-text">URGENT</p>
@@ -173,21 +173,21 @@ function displayToDoList() {
   toDoList = new ToDoList();
 }
 
-// function checkTaskData(event) {
-//   debugger;
-//   var clickedId = event.target.closest('div').id;
-//   var toDoId = event.target.closest('.task-list-wrapper').id;
-//   var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
-//   for (var i = 0; i < toDoArray.length; i++) {
-//     if (toDoArray[i].id == toDoId) {
-//       for (var i = 0; i < toDoArray[i].tasks.length; i++) {
-//         if (toDoArray[i].tasks[i].id == clickedId) {
-//           toDoArray[i].tasks[i].checked = true;
-//         }
-//       }
-//     }
-//   }
-// }
+function checkTaskData(event) {
+  debugger;
+  var clickedId = event.target.closest('div').id;
+  var toDoId = event.target.closest('.task-list-wrapper').id;
+  var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+  for (var i = 0; i < toDoArray.length; i++) {
+    if (toDoArray[i].id == toDoId) {
+      var toDoToUpdate = toDoArray[i];
+      var taskToUpdate = toDoToUpdate.tasks.find(taskToUpdate => taskToUpdate.id == clickedId);
+      taskToUpdate.checked = true;
+      console.log(toDoToUpdate);
+      toDoList.saveToStorage(toDoToUpdate);
+    }
+  }
+}
 
 function checkTaskDom(event) {
   if (!event.target.closest('div').classList.contains('checked-text')) {
@@ -199,9 +199,10 @@ function checkTaskDom(event) {
   }
 }
 
-// function removeToDoData(event) {
-//
-// }
+function removeToDoData(event) {
+  var removeToDoId = event.target.closest('.task-card-footer').id;
+  toDoList.deleteFromStorage(removeToDoId);
+}
 
 function removeToDoDom(event) {
   event.target.closest('section').remove();
