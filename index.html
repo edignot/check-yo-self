@@ -10,36 +10,36 @@
 <body>
   <section class="header-container">
     <h1>Check <span class="title-accent">Yo`</span> Self</h1>
-    <div class="search-bar-wrapper">
+    <div class="search-wrapper">
       <button disabled type="submit" name="button" class="search-btn" id="search-btn"><img src="img/search.svg" alt="search"></button>
-      <input type="search" name="search" value="" class="search-input" id="search-img">
+      <input type="search" name="search" class="search-input" id="search-img">
     </div>
   </section>
   <main>
-    <section class="main-page-container">
-      <section class="task-form-container">
-        <form class="form-container" action="#" method="post">
-          <div class="task-title-container">
-            <label for="task-title">Task Title</label>
-            <input type="text" name="task-title" class="task-title-input input" placeholder="A new ToDo Title">
+    <section class="main-container">
+      <section class="form-container">
+        <form  action="#" method="post">
+          <div class="title-container">
+            <label for="title-input">Task Title</label>
+            <input type="text" name="title-input" class="title-input input" placeholder="A new ToDo Title">
           </div>
-          <div class="new-task-container">
+          <div class="task-container">
           </div>
-          <div class="task-item-container">
-            <label for="task-item">Task Item</label>
-            <div class="task-input-btn-wrapper">
-              <input type="text" name="task-item" class="task-item-input input" placeholder="Typing a new Item">
-              <button disabled type="button" name="button" class="add-task-btn">+</button>
+          <div class="text-container">
+            <label for="text-input">Task Item</label>
+            <div class="text-wrapper">
+              <input type="text" name="text-input" class="text-input input" placeholder="Typing a new Item">
+              <button disabled type="button" name="button" class="task-btn">+</button>
             </div>
           </div>
-          <button disabled type="button" name="button" class="make-task-list-btn btn">Make Task List</button>
-          <button disabled type="button" name="button" class="clear-all-btn btn">Clear All</button>
-          <button disabled type="button" name="button" class="filter-urgency-btn btn">Filter by Urgency</button>
+          <button disabled type="button" name="button" class="todo-btn btn">Make Task List</button>
+          <button disabled type="button" name="button" class="clear-btn btn">Clear All</button>
+          <button disabled type="button" name="button" class="urgent-btn btn">Filter by Urgency</button>
         </form>
       </section>
-      <section class="task-display-container">
-        <p class="create-new-task-message hide">Nothing to Display.</br> Create New Task!</p>
-        <section class="task-cards-container">
+      <section class="display-container">
+        <p class="message hide">Nothing to Display.</br> Create New Task!</p>
+        <section class="todo-container">
         </section>
       </section>
     </section>

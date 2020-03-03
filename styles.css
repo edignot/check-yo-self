@@ -52,7 +52,7 @@ html {
   color: var(--accent);
 }
 
-.search-bar-wrapper {
+.search-wrapper {
   display: flex;
   padding: 20px;
 }
@@ -73,22 +73,22 @@ html {
 /* --------------------- */
 /* ----- Main ----- */
 /* --------------------- */
-.main-page-container {
+.main-container {
   display: flex;
   width: 100%;
 }
 
-.task-form-container,
-.task-display-container {
+.form-container,
+.display-container {
   min-height: 90vh;
 }
 
-.task-form-container {
+.form-container {
   width: 30%;
   background-color: var(--main-medium);
 }
 
-.task-display-container {
+.display-container {
   width: 70%;
   background-color: var(--main-light);
 }
@@ -96,22 +96,22 @@ html {
 /* --------------------- */
 /* ----- Form ----- */
 /* --------------------- */
-.form-container,
-.task-title-container,
-.task-item-container {
+form,
+.title-container,
+.text-container {
   display: flex;
   flex-direction: column;
 }
 
-.task-title-container,
-.task-item-container,
+.title-container,
+.text-container,
 .btn {
   margin: 20px;
 }
 
 /* ----- Inputs ----- */
-.task-title-container,
-.task-item-container {
+.title-container,
+.text-container {
   color: var(--card-border);
 }
 
@@ -123,17 +123,17 @@ html {
   outline: none;
 }
 
-.task-item-input {
+.text-input {
   border-radius: 5px 0 0 5px;
 }
 
-.task-input-btn-wrapper {
+.text-wrapper {
   display: flex;
   width: 100%;
 }
 
 /* ----- Buttons ----- */
-.add-task-btn {
+.task-btn {
   background-color: var(--main-dark);
   color: var(--main-font);
   font-weight: 700;
@@ -155,7 +155,7 @@ html {
   outline: none;
 }
 
-.add-task-btn:hover,
+.task-btn:hover,
 .btn:hover {
   background-color: var(--accent);
   transition: background-color 1s;
@@ -164,22 +164,21 @@ html {
 /* --------------------- */
 /* ----- Tasks ----- */
 /* --------------------- */
-
 /* ----- Create New Task Message ----- */
-.create-new-task-message {
+.message {
   font-size: 400%;
   text-align: center;
   color: var(--card-border)
 }
 
 /* ----- Task Card Container ----- */
-.task-cards-container {
+.todo-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
-.task-card-container {
+.todo-wrapper {
   width: 42%;
   min-height: 160px;
   height: auto;
@@ -189,7 +188,7 @@ html {
   margin: 30px;
 }
 
-.task-card-container-urgent {
+.todo-wrapper-urgent {
   background-color: var(--urgent-card-background);
   border: 2px solid var(--urgent-card-border);
 }
@@ -212,13 +211,18 @@ html {
   padding: 10px;
 }
 
-.task-list-item {
-  display: flex;
+.task {
+  color: var(--main-font);
 }
 
-.new-list-item {
+.task-todo {
+  color: var(--main-dark);
+}
+
+.task,
+.task-todo {
+  display: flex;
   margin-left: 20px;
-  color: var(--main-font);
 }
 
 .checkbox-img,
@@ -237,7 +241,6 @@ html {
 .task-card-footer {
   display: flex;
   padding: 10px;
-
   justify-content: space-between;
   font-size: 50%;
   border-top: 2px solid var(--card-border);
@@ -272,7 +275,8 @@ html {
 .hide {
   display: none;
 }
-.checked-text {
+
+.checked {
   font-style: italic;
   color: var(--urgent-card-border);
   text-decoration:

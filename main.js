@@ -1,16 +1,15 @@
 var body = document.querySelector('body');
 var searchInput = document.querySelector('.search-input');
 var searchBtn = document.querySelector('.search-btn');
-var taskContainer = document.querySelector('.new-task-container');
-var titleInput = document.querySelector('.task-title-input');
-var textInput = document.querySelector('.task-item-input');
-var taskBtn = document.querySelector('.add-task-btn');
-var toDoBtn = document.querySelector('.make-task-list-btn');
-var clearBtn = document.querySelector('.clear-all-btn');
-var urgentbtn = document.querySelector('.filter-urgency-btn');
-var toDoContainer = document.querySelector('.task-cards-container');
-var message = document.querySelector('.create-new-task-message');
-
+var taskContainer = document.querySelector('.task-container');
+var titleInput = document.querySelector('.title-input');
+var textInput = document.querySelector('.text-input');
+var taskBtn = document.querySelector('.task-btn');
+var toDoBtn = document.querySelector('.todo-btn');
+var clearBtn = document.querySelector('.clear-btn');
+var urgentbtn = document.querySelector('.urgent-btn');
+var toDoContainer = document.querySelector('.todo-container');
+var message = document.querySelector('.message');
 
 window.addEventListener('load', pageLoad);
 body.addEventListener('input', buttonStatus);
@@ -41,7 +40,7 @@ function buttonStatus() {
 }
 
 function buttonClick(event) {
-  if (event.target.classList.contains('add-task-btn')) {
+  if (event.target.classList.contains('task-btn')) {
     displayTask();
     taskBtn.setAttribute('disabled', 'disabled');
   }
@@ -50,13 +49,13 @@ function buttonClick(event) {
     removeTask(event);
   }
 
-  if (event.target.closest('.clear-all-btn')) {
+  if (event.target.closest('.clear-btn')) {
     clearAll();
     clearBtn.setAttribute('disabled', 'disabled');
     toDoBtn.setAttribute('disabled', 'disabled');
   }
 
-  if (event.target.closest('.make-task-list-btn')) {
+  if (event.target.closest('.todo-btn')) {
     saveToDo();
     getToDo();
     toDoBtn.setAttribute('disabled', 'disabled');
@@ -77,7 +76,7 @@ function buttonClick(event) {
     makeToDoUrgentDom(event);
   }
 
-  if (event.target.closest('.filter-urgency-btn')) {
+  if (event.target.closest('.urgent-btn')) {
     alert('filter by urgency');
   }
 }
@@ -96,11 +95,11 @@ function displayMessage() {
 
 function displayTask() {
   var taskId = Date.now();
-  var taskTitle = textInput.value;
+  var taskText = textInput.value;
   taskContainer.insertAdjacentHTML('beforeend', `
-  <div class="task-list-item new-list-item" id="${taskId}">
+  <div class="task" id="${taskId}">
     <img src="img/delete.svg" alt="delete" class="delete-img img" id="${taskId}">
-    <p>${taskTitle}</p>
+    <p>${taskText}</p>
   </div>
   `);
   textInput.value = '';
@@ -120,7 +119,7 @@ function clearAll() {
 
 function saveToDo() {
   var tasks = [];
-  var allTasks = taskContainer.querySelectorAll('div.task-list-item');
+  var allTasks = taskContainer.querySelectorAll('div.task');
   allTasks.forEach(task => tasks.push(createTask(task)));
   var title = titleInput.value;
   var toDo = new ToDo(title, tasks);
@@ -147,7 +146,7 @@ function getToDo() {
 function displayToDo(toDo) {
   message.classList.add('hide');
   toDoContainer.insertAdjacentHTML('afterbegin', `
-<section class="task-card-container">
+<section class="todo-wrapper">
   <p class="task-card-title">${toDo.title}</p>
   <div class="task-list-wrapper" id="${toDo.id}">
   </div>
@@ -166,7 +165,7 @@ function displayToDo(toDo) {
   var task = document.getElementById(`${toDo.id}`);
   for (var i = 0; i < toDo.tasks.length; i++) {
     task.innerHTML += `
-  <div class="task-list-item" id="${toDo.tasks[i].id}">
+  <div class="task-todo" id="${toDo.tasks[i].id}">
     <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
     <p>${toDo.tasks[i].title}</p>
   </div>
@@ -183,11 +182,11 @@ function displayToDo(toDo) {
 // }
 
 function checkTaskDom(event) {
-  if (!event.target.closest('div').classList.contains('checked-text')) {
-    event.target.closest('div').classList.add('checked-text');
+  if (!event.target.closest('div').classList.contains('checked')) {
+    event.target.closest('div').classList.add('checked');
     event.target.setAttribute('src', 'img/checkbox-active.svg');
-  } else if (event.target.closest('div').classList.contains('checked-text')) {
-    event.target.closest('div').classList.remove('checked-text');
+  } else if (event.target.closest('div').classList.contains('checked')) {
+    event.target.closest('div').classList.remove('checked');
     event.target.setAttribute('src', 'img/checkbox.svg');
   }
 }
@@ -208,12 +207,12 @@ function deleteToDoDom(event) {
 // }
 
 function makeToDoUrgentDom(event) {
-  if (!event.target.closest('section').classList.contains('task-card-container-urgent')) {
-    event.target.closest('section').classList.add('task-card-container-urgent');
+  if (!event.target.closest('section').classList.contains('todo-wrapper-urgent')) {
+    event.target.closest('section').classList.add('todo-wrapper-urgent');
     event.target.setAttribute('src', 'img/urgent-active.svg');
     event.target.closest('.task-card-footer').classList.add('task-list-footer-urgent');
-  } else if (event.target.closest('section').classList.contains('task-card-container-urgent')) {
-    event.target.closest('section').classList.remove('task-card-container-urgent');
+  } else if (event.target.closest('section').classList.contains('todo-wrapper-urgent')) {
+    event.target.closest('section').classList.remove('todo-wrapper-urgent');
     event.target.setAttribute('src', 'img/urgent.svg');
     event.target.closest('.task-card-footer').classList.remove('task-list-footer-urgent');
   }
