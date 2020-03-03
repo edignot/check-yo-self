@@ -10,7 +10,7 @@ var clearAllBtn = document.querySelector('.clear-all-btn');
 var filterUrgencyBtn = document.querySelector('.filter-urgency-btn');
 var taskCardsContainer = document.querySelector('.task-cards-container');
 var createTaskMessage = document.querySelector('.create-new-task-message');
-var toDoList = new ToDoList();
+
 
 window.addEventListener('load', pageLoadDisplay);
 body.addEventListener('input', buttonStatusHandler);
@@ -45,17 +45,18 @@ function buttonClickHandler(event) {
   }
 
   if (event.target.classList.contains('add-task-btn')) {
-    createTaskInstance();
+    displayNewTask();
     addTaskBtn.setAttribute('disabled', 'disabled');
   }
 
   if (event.target.closest('.make-task-list-btn')) {
-    debugger;
-    taskCardsContainer.innerText = '';
-    toDoList.updateTitle();
+
+
+    // toDoList.updateTitle();
     saveToDoList();
     displayAllToDo();
     makeTaskListBtn.setAttribute('disabled', 'disabled');
+    taskCardsContainer.innerText = '';
   }
 
   if (event.target.closest('.clear-all-btn')) {
@@ -89,7 +90,6 @@ function buttonClickHandler(event) {
 }
 
 function displayAllToDo() {
-  debugger;
   if (localStorage.getItem('toDoArray')) {
     var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
     for (var i = 0; i < toDoArray.length; i++) {
@@ -109,25 +109,17 @@ function clearAllInputs() {
   taskTitleInput.value = '';
   taskItemInput.value = '';
   newTaskContainer.innerText = '';
-  toDoList.tasks = [];
+  // toDoList.tasks = [];
   buttonStatusHandler();
 }
 
-function createTaskInstance() {
-  debugger;
-  if (taskItemInput.value !== '') {
-    var task = new Task(taskItemInput.value);
-  }
-
-  toDoList.updateTaskArray(task);
-  displayNewTask(task);
-}
-
-function displayNewTask(task) {
+function displayNewTask() {
+  var taskId = Date.now();
+  var taskTitle = taskItemInput.value;
   newTaskContainer.insertAdjacentHTML('beforeend', `
-  <div class="task-list-item new-list-item" id="${task.id}">
-    <img src="img/delete.svg" alt="delete" class="delete-img img" id="${task.id}">
-    <p>${task.title}</p>
+  <div class="task-list-item new-list-item" id="${taskId}">
+    <img src="img/delete.svg" alt="delete" class="delete-img img" id="${taskId}">
+    <p>${taskTitle}</p>
   </div>
   `);
   taskItemInput.value = '';
@@ -145,7 +137,19 @@ function removeTaskDisplay(event) {
 
 function saveToDoList() {
   createToDoArray();
+  var tasks = [];
+  var taskList = newTaskContainer.querySelectorAll('div.task-list-item');
+  taskList.forEach(task => tasks.push(createTask(task)));
+  var title =  taskTitleInput.value;
+  var toDoList = new ToDoList(title, tasks);
   toDoList.saveToStorage(toDoList);
+  debugger;
+}
+
+function createTask(task) {
+  var title = task.innerText;
+  var id = task.id;
+  return new Task(title, id);
 }
 
 function createToDoArray() {
@@ -155,7 +159,6 @@ function createToDoArray() {
 }
 
 function displayToDoList(toDoList) {
-  debugger;
   createTaskMessage.classList.add('hide');
   taskCardsContainer.insertAdjacentHTML('afterbegin', `
 <section class="task-card-container">
