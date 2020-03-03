@@ -1,37 +1,38 @@
 var body = document.querySelector('body');
 var searchInput = document.querySelector('.search-input');
 var searchBtn = document.querySelector('.search-btn');
-var newTaskContainer = document.querySelector('.new-task-container');
-var taskTitleInput = document.querySelector('.task-title-input');
-var taskItemInput = document.querySelector('.task-item-input');
-var addTaskBtn = document.querySelector('.add-task-btn');
-var makeTaskListBtn = document.querySelector('.make-task-list-btn');
-var clearAllBtn = document.querySelector('.clear-all-btn');
-var filterUrgencyBtn = document.querySelector('.filter-urgency-btn');
-var taskCardsContainer = document.querySelector('.task-cards-container');
-var createTaskMessage = document.querySelector('.create-new-task-message');
+var taskContainer = document.querySelector('.new-task-container');
+var titleInput = document.querySelector('.task-title-input');
+var textInput = document.querySelector('.task-item-input');
+var taskBtn = document.querySelector('.add-task-btn');
+var toDoBtn = document.querySelector('.make-task-list-btn');
+var clearBtn = document.querySelector('.clear-all-btn');
+var urgentbtn = document.querySelector('.filter-urgency-btn');
+var toDoContainer = document.querySelector('.task-cards-container');
+var message = document.querySelector('.create-new-task-message');
 
 
-window.addEventListener('load', pageLoadDisplay);
-body.addEventListener('input', buttonStatusHandler);
-body.addEventListener('click', buttonClickHandler);
+window.addEventListener('load', pageLoad);
+body.addEventListener('input', buttonStatus);
+body.addEventListener('click', buttonClick);
 
-function pageLoadDisplay() {
-  displayAllToDo();
+function pageLoad() {
+  createToDoArray();
   displayMessage();
+  getToDo();
 }
 
-function buttonStatusHandler() {
-  if (taskItemInput.value !== '') {
-    addTaskBtn.removeAttribute('disabled', 'disabled');
+function buttonStatus() {
+  if (textInput.value !== '') {
+    taskBtn.removeAttribute('disabled', 'disabled');
   }
 
-  if (taskTitleInput.value !== '') {
-    makeTaskListBtn.removeAttribute('disabled', 'disabled');
+  if (titleInput.value !== '') {
+    toDoBtn.removeAttribute('disabled', 'disabled');
   }
 
-  if (taskTitleInput.value !== '' || taskItemInput.value !== '') {
-    clearAllBtn.removeAttribute('disabled', 'disabled');
+  if (titleInput.value !== '' || textInput.value !== '') {
+    clearBtn.removeAttribute('disabled', 'disabled');
   }
 
   if (searchInput.value !== '') {
@@ -39,117 +40,46 @@ function buttonStatusHandler() {
   }
 }
 
-function buttonClickHandler(event) {
-  if (event.target.closest('.search-btn')) {
-    alert('search');
-  }
-
+function buttonClick(event) {
   if (event.target.classList.contains('add-task-btn')) {
-    displayNewTask();
-    addTaskBtn.setAttribute('disabled', 'disabled');
+    displayTask();
+    taskBtn.setAttribute('disabled', 'disabled');
   }
 
-  if (event.target.closest('.make-task-list-btn')) {
-
-
-    // toDoList.updateTitle();
-    saveToDoList();
-    displayAllToDo();
-    makeTaskListBtn.setAttribute('disabled', 'disabled');
-    taskCardsContainer.innerText = '';
+  if (event.target.classList.contains('delete-img')) {
+    removeTask(event);
   }
 
   if (event.target.closest('.clear-all-btn')) {
-    clearAllInputs();
-    clearAllBtn.setAttribute('disabled', 'disabled');
-    makeTaskListBtn.setAttribute('disabled', 'disabled');
+    clearAll();
+    clearBtn.setAttribute('disabled', 'disabled');
+    toDoBtn.setAttribute('disabled', 'disabled');
+  }
+
+  if (event.target.closest('.make-task-list-btn')) {
+    saveToDo();
+    getToDo();
+    toDoBtn.setAttribute('disabled', 'disabled');
+  }
+
+  if (event.target.classList.contains('checkbox-img')) {
+    // checkTaskData(event);
+    checkTaskDom(event);
+  }
+
+  if (event.target.classList.contains('delete-todo-img')) {
+    // deleteToDoData(event);
+    deleteToDoDom(event);
+  }
+
+  if (event.target.classList.contains('urgent-img')) {
+    // makeToDoUrgentData(event);
+    makeToDoUrgentDom(event);
   }
 
   if (event.target.closest('.filter-urgency-btn')) {
     alert('filter by urgency');
   }
-
-  if (event.target.classList.contains('delete-img')) {
-    removeTaskDisplay(event);
-  }
-
-  if (event.target.classList.contains('checkbox-img')) {
-    checkTaskData(event);
-    checkTaskDom(event);
-  }
-
-  if (event.target.classList.contains('delete-todo-img')) {
-    removeToDoData(event);
-    removeToDoDom(event);
-  }
-
-  if (event.target.classList.contains('urgent-img')) {
-    makeToDoUrgentData(event);
-    makeToDoUrgentDom(event);
-  }
-}
-
-function displayAllToDo() {
-  if (localStorage.getItem('toDoArray')) {
-    var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
-    for (var i = 0; i < toDoArray.length; i++) {
-      var toDoList = new ToDoList(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent);
-      displayToDoList(toDoList);
-    }
-  }
-}
-
-function displayMessage() {
-  if (taskCardsContainer.innerText === '') {
-    createTaskMessage.classList.remove('hide');
-  }
-}
-
-function clearAllInputs() {
-  taskTitleInput.value = '';
-  taskItemInput.value = '';
-  newTaskContainer.innerText = '';
-  // toDoList.tasks = [];
-  buttonStatusHandler();
-}
-
-function displayNewTask() {
-  var taskId = Date.now();
-  var taskTitle = taskItemInput.value;
-  newTaskContainer.insertAdjacentHTML('beforeend', `
-  <div class="task-list-item new-list-item" id="${taskId}">
-    <img src="img/delete.svg" alt="delete" class="delete-img img" id="${taskId}">
-    <p>${taskTitle}</p>
-  </div>
-  `);
-  taskItemInput.value = '';
-}
-
-function removeTaskDisplay(event) {
-  if (event.target.classList.contains('delete-img')) {
-    var clickedId = event.target.id;
-    var removeTask = toDoList.tasks.find(removeTask => removeTask.id == clickedId);
-    var removeId = toDoList.tasks.indexOf(removeTask);
-    toDoList.tasks.splice(removeId, 1);
-    event.target.closest('div').remove();
-  }
-}
-
-function saveToDoList() {
-  createToDoArray();
-  var tasks = [];
-  var taskList = newTaskContainer.querySelectorAll('div.task-list-item');
-  taskList.forEach(task => tasks.push(createTask(task)));
-  var title =  taskTitleInput.value;
-  var toDoList = new ToDoList(title, tasks);
-  toDoList.saveToStorage(toDoList);
-  debugger;
-}
-
-function createTask(task) {
-  var title = task.innerText;
-  var id = task.id;
-  return new Task(title, id);
 }
 
 function createToDoArray() {
@@ -158,14 +88,70 @@ function createToDoArray() {
   }
 }
 
-function displayToDoList(toDoList) {
-  createTaskMessage.classList.add('hide');
-  taskCardsContainer.insertAdjacentHTML('afterbegin', `
-<section class="task-card-container">
-  <p class="task-card-title">${toDoList.title}</p>
-  <div class="task-list-wrapper" id="${toDoList.id}">
+function displayMessage() {
+  if (toDoContainer.innerText === '') {
+    message.classList.remove('hide');
+  }
+}
+
+function displayTask() {
+  var taskId = Date.now();
+  var taskTitle = textInput.value;
+  taskContainer.insertAdjacentHTML('beforeend', `
+  <div class="task-list-item new-list-item" id="${taskId}">
+    <img src="img/delete.svg" alt="delete" class="delete-img img" id="${taskId}">
+    <p>${taskTitle}</p>
   </div>
-  <div class="task-card-footer" id="${toDoList.id}">
+  `);
+  textInput.value = '';
+}
+
+function removeTask(event) {
+  if (event.target.classList.contains('delete-img')) {
+    event.target.closest('div').remove();
+  }
+}
+
+function clearAll() {
+  titleInput.value = '';
+  textInput.value = '';
+  taskContainer.innerText = '';
+}
+
+function saveToDo() {
+  var tasks = [];
+  var allTasks = taskContainer.querySelectorAll('div.task-list-item');
+  allTasks.forEach(task => tasks.push(createTask(task)));
+  var title = titleInput.value;
+  var toDo = new ToDo(title, tasks);
+  toDo.saveToStorage(toDo);
+}
+
+function createTask(task) {
+  var title = task.innerText;
+  var id = task.id;
+  return new Task(title, id);
+}
+
+function getToDo() {
+  toDoContainer.innerText = '';
+  if (localStorage.getItem('toDoArray')) {
+    var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+    for (var i = 0; i < toDoArray.length; i++) {
+      var toDo = new ToDo(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent);
+      displayToDo(toDo);
+    }
+  }
+}
+
+function displayToDo(toDo) {
+  message.classList.add('hide');
+  toDoContainer.insertAdjacentHTML('afterbegin', `
+<section class="task-card-container">
+  <p class="task-card-title">${toDo.title}</p>
+  <div class="task-list-wrapper" id="${toDo.id}">
+  </div>
+  <div class="task-card-footer" id="${toDo.id}">
     <div class="urgent-img-wrapper">
       <img src="img/urgent.svg" alt="urgent" class="urgent-img img">
       <p class="urgent-text">URGENT</p>
@@ -177,25 +163,24 @@ function displayToDoList(toDoList) {
   </div>
 </section>
 `);
-  var taskItem = document.getElementById(`${toDoList.id}`);
-  for (var i = 0; i < toDoList.tasks.length; i++) {
-    taskItem.innerHTML += `
-  <div class="task-list-item" id="${toDoList.tasks[i].id}">
+  var task = document.getElementById(`${toDo.id}`);
+  for (var i = 0; i < toDo.tasks.length; i++) {
+    task.innerHTML += `
+  <div class="task-list-item" id="${toDo.tasks[i].id}">
     <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
-    <p>${toDoList.tasks[i].title}</p>
+    <p>${toDo.tasks[i].title}</p>
   </div>
   `;
   }
 
-  clearAllInputs();
-  // toDoList = new ToDoList();
+  clearAll();
 }
 
-function checkTaskData(event) {
-  var clickedId = event.target.closest('div').id;
-  var toDoId = event.target.closest('.task-list-wrapper').id;
-  toDoList.updateTask(clickedId, toDoId);
-}
+// function checkTaskData(event) {
+//   // var clickId = event.target.closest('div').id;
+//   // var toDoId = event.target.closest('.task-list-wrapper').id;
+//   // toDo.updateTask(clickId, toDoId);
+// }
 
 function checkTaskDom(event) {
   if (!event.target.closest('div').classList.contains('checked-text')) {
@@ -207,20 +192,20 @@ function checkTaskDom(event) {
   }
 }
 
-function removeToDoData(event) {
-  var removeToDoId = event.target.closest('.task-card-footer').id;
-  toDoList.deleteFromStorage(removeToDoId);
-}
+// function deleteToDoData(event) {
+//   var deleteToDoId = event.target.closest('.task-card-footer').id;
+//   toDo.deleteFromStorage(deleteToDoId);
+// }
 
-function removeToDoDom(event) {
+function deleteToDoDom(event) {
   event.target.closest('section').remove();
   displayMessage();
 }
 
-function makeToDoUrgentData(event) {
-  var makeUrgentId = event.target.closest('.task-card-footer').id;
-  toDoList.updateToDo(makeUrgentId);
-}
+// function makeToDoUrgentData(event) {
+//   var urgentId = event.target.closest('.task-card-footer').id;
+//   toDo.updateToDo(urgentId);
+// }
 
 function makeToDoUrgentDom(event) {
   if (!event.target.closest('section').classList.contains('task-card-container-urgent')) {
