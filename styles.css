@@ -269,3 +269,6 @@ form,
 button:disabled {
   opacity: 0.5;
 }
+.completed {
+  background-color:  #e2eff5;
+}

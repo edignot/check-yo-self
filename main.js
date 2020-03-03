@@ -68,9 +68,8 @@ function buttonClick(event) {
   }
 
   if (event.target.classList.contains('delete-todo-img')) {
-    // checkIfToDoFinished(event);
-    // deleteToDoData(event);
-    // deleteToDoDom(event);
+    deleteToDoData(event);
+    deleteToDoDom(event);
   }
 
   if (event.target.classList.contains('urgent-img')) {
@@ -148,7 +147,7 @@ function getToDo() {
   if (localStorage.getItem('toDoArray')) {
     var toDoArray = getLocalStorage();
     for (var i = 0; i < toDoArray.length; i++) {
-      var toDo = new ToDo(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent);
+      var toDo = new ToDo(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent, toDoArray[i].completed);
       if (toDoArray[i].urgent) {
         displayUrgentToDo(toDo);
       }
@@ -216,7 +215,7 @@ function displayUrgentToDo(toDo) {
       <p class="urgent-text">URGENT</p>
     </div>
     <div class="delete-img-wrapper">
-      <img src="img/delete.svg" alt="delete" class="delete-todo-img img">
+      <img src="img/delete.svg" alt="delete" class="delete-todo-img img" id="delete">
       <p class="delete-text">DELETE</p>
     </div>
   </div>
@@ -273,7 +272,6 @@ function checkTaskDom(event) {
 }
 
 function checkIfToDoFinished(event) {
-  debugger;
   var toDoId = event.target.closest('.tasks').id;
   var toDoArray = getLocalStorage();
   var toDo = toDoArray.find(toDo => toDo.id == toDoId);
@@ -284,12 +282,16 @@ function checkIfToDoFinished(event) {
       checkCounter++;
     }
   }
+
   if (checkCounter == tasks.length) {
     toDo.completed = true;
+    event.target.closest('.tasks').classList.add('completed');
   } else {
     toDo.completed = false;
+    event.target.closest('.tasks').classList.remove('completed');
   }
-  debugger;
+
+  setLocatStorage(toDoArray);
 }
 
 function deleteToDoData(event) {
