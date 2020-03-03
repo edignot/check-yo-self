@@ -64,7 +64,7 @@ function buttonClick(event) {
   if (event.target.classList.contains('checkbox-img')) {
     checkTaskData(event);
     checkTaskDom(event);
-    checkIfToDoFinished(event);
+    checkToDoCompleted(event);
   }
 
   if (event.target.classList.contains('delete-todo-img')) {
@@ -148,11 +148,13 @@ function getToDo() {
     var toDoArray = getLocalStorage();
     for (var i = 0; i < toDoArray.length; i++) {
       var toDo = new ToDo(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent, toDoArray[i].completed);
-      if (toDoArray[i].urgent) {
+      if (toDoArray[i].completed && !toDoArray[i].urgent) {
+        displayCompletedToDo(toDo);
+      } else if (toDoArray[i].completed && toDoArray[i].urgent) {
+        displayUrgentCompletedToDo(toDo);
+      } else if (toDoArray[i].urgent) {
         displayUrgentToDo(toDo);
-      }
-
-      if (!toDoArray[i].urgent) {
+      } else if (!toDoArray[i].urgent) {
         displayToDo(toDo);
       }
     }
@@ -245,6 +247,92 @@ function displayUrgentToDo(toDo) {
   clearAll();
 }
 
+function displayCompletedToDo(toDo) {
+  message.classList.add('hide');
+  toDoContainer.insertAdjacentHTML('afterbegin', `
+<section class="todo-wrapper" id="todo">
+  <p class="task-card-title">${toDo.title}</p>
+  <div class="tasks" id="${toDo.id}">
+  </div>
+  <div class="task-card-footer" id="${toDo.id}">
+    <div class="urgent-img-wrapper">
+      <img src="img/urgent.svg" alt="urgent" class="urgent-img img">
+      <p class="urgent-text">URGENT</p>
+    </div>
+    <div class="delete-img-wrapper">
+      <img src="img/delete-active.svg" alt="delete" class="delete-todo-img img" id="delete">
+      <p class="delete-text">DELETE</p>
+    </div>
+  </div>
+</section>
+`);
+  var task = document.getElementById(`${toDo.id}`);
+  for (var i = 0; i < toDo.tasks.length; i++) {
+    if (toDo.tasks[i].checked) {
+      task.innerHTML += `
+  <div class="task-todo checked" id="${toDo.tasks[i].id}">
+    <img src="img/checkbox-active.svg" alt="checkbox" class="checkbox-img img">
+    <p>${toDo.tasks[i].title}</p>
+  </div>
+  `;
+    }
+
+    if (!toDo.tasks[i].checked) {
+      task.innerHTML += `
+  <div class="task-todo" id="${toDo.tasks[i].id}">
+    <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
+    <p>${toDo.tasks[i].title}</p>
+  </div>
+  `;
+    }
+  }
+
+  clearAll();
+}
+
+function displayUrgentCompletedToDo(toDo) {
+  message.classList.add('hide');
+  toDoContainer.insertAdjacentHTML('afterbegin', `
+<section class="todo-wrapper urgent" id="todo">
+  <p class="task-card-title">${toDo.title}</p>
+  <div class="tasks" id="${toDo.id}">
+  </div>
+  <div class="task-card-footer" id="${toDo.id}">
+    <div class="urgent-img-wrapper">
+      <img src="img/urgent-active.svg" alt="urgent" class="urgent-img img">
+      <p class="urgent-text">URGENT</p>
+    </div>
+    <div class="delete-img-wrapper">
+      <img src="img/delete-active.svg" alt="delete" class="delete-todo-img img" id="delete">
+      <p class="delete-text">DELETE</p>
+    </div>
+  </div>
+</section>
+`);
+  var task = document.getElementById(`${toDo.id}`);
+  for (var i = 0; i < toDo.tasks.length; i++) {
+    if (toDo.tasks[i].checked) {
+      task.innerHTML += `
+  <div class="task-todo checked" id="${toDo.tasks[i].id}">
+    <img src="img/checkbox-active.svg" alt="checkbox" class="checkbox-img img">
+    <p>${toDo.tasks[i].title}</p>
+  </div>
+  `;
+    }
+
+    if (!toDo.tasks[i].checked) {
+      task.innerHTML += `
+  <div class="task-todo" id="${toDo.tasks[i].id}">
+    <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
+    <p>${toDo.tasks[i].title}</p>
+  </div>
+  `;
+    }
+  }
+
+  clearAll();
+}
+
 function checkTaskData(event) {
   var clickId = event.target.closest('div').id;
   var toDoId = event.target.closest('.tasks').id;
@@ -271,7 +359,7 @@ function checkTaskDom(event) {
   }
 }
 
-function checkIfToDoFinished(event) {
+function checkToDoCompleted(event) {
   var toDoId = event.target.closest('.tasks').id;
   var toDoArray = getLocalStorage();
   var toDo = toDoArray.find(toDo => toDo.id == toDoId);
