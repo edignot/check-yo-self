@@ -26,10 +26,12 @@ html {
   height: 100%;
   background-color: var(--main-light);
   outline: none;
+  cursor: default;
 }
 
 .img {
   width: 20px;
+  cursor: pointer;
 }
 
 /* ----- Header ----- */
@@ -58,6 +60,7 @@ html {
   width: 45px;
   border-radius: 5px 0 0 5px;
   outline: none;
+  cursor: pointer;
 }
 
 .search-input {
@@ -99,6 +102,7 @@ form,
 .text-container,
 .btn {
   margin: 20px;
+  cursor: pointer;
 }
 
 /* ----- Inputs ----- */
@@ -134,6 +138,7 @@ form,
   padding: 0 20px;
   border-radius: 0 5px 5px 0;
   outline: none;
+  cursor: pointer;
 }
 
 .btn {
@@ -145,6 +150,7 @@ form,
   border: 0px;
   border-radius: var(--border-radius);
   outline: none;
+  cursor: pointer;
 }
 
 .task-btn:hover,
@@ -162,19 +168,22 @@ form,
 
 /* ----- Task Card Container ----- */
 .todo-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  column-count: 2;
+  column-gap: 40px;
+  box-sizing: border-box;
+  width: 90%;
+  margin: 40px auto;
 }
 
 .todo-wrapper {
-  width: 42%;
-  min-height: 160px;
-  height: auto;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 40px;
   background-color: var(--card-background);
   color: var(--main-dark);
   border: 2px solid var(--card-border);
-  margin: 30px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
 
 .urgent {
@@ -234,10 +243,6 @@ form,
 .delete-img-wrapper,
 .urgent-img-wrapper {
   text-align: center;
-}
-
-.delete-img {
-  width: 16px;
 }
 
 .urgent-text,
