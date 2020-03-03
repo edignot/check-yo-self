@@ -148,7 +148,7 @@ function displayToDo(toDo) {
   toDoContainer.insertAdjacentHTML('afterbegin', `
 <section class="todo-wrapper">
   <p class="task-card-title">${toDo.title}</p>
-  <div class="task-list-wrapper" id="${toDo.id}">
+  <div class="tasks" id="${toDo.id}">
   </div>
   <div class="task-card-footer" id="${toDo.id}">
     <div class="urgent-img-wrapper">
@@ -177,7 +177,7 @@ function displayToDo(toDo) {
 
 // function checkTaskData(event) {
 //   // var clickId = event.target.closest('div').id;
-//   // var toDoId = event.target.closest('.task-list-wrapper').id;
+//   // var toDoId = event.target.closest('.tasks').id;
 //   // toDo.updateTask(clickId, toDoId);
 // }
 
@@ -207,13 +207,13 @@ function deleteToDoDom(event) {
 // }
 
 function makeToDoUrgentDom(event) {
-  if (!event.target.closest('section').classList.contains('todo-wrapper-urgent')) {
-    event.target.closest('section').classList.add('todo-wrapper-urgent');
+  if (!event.target.closest('section').classList.contains('urgent')) {
+    event.target.closest('section').classList.add('urgent');
     event.target.setAttribute('src', 'img/urgent-active.svg');
-    event.target.closest('.task-card-footer').classList.add('task-list-footer-urgent');
-  } else if (event.target.closest('section').classList.contains('todo-wrapper-urgent')) {
-    event.target.closest('section').classList.remove('todo-wrapper-urgent');
+    event.target.closest('.task-card-footer').classList.add('footer-urgent');
+  } else if (event.target.closest('section').classList.contains('urgent')) {
+    event.target.closest('section').classList.remove('urgent');
     event.target.setAttribute('src', 'img/urgent.svg');
-    event.target.closest('.task-card-footer').classList.remove('task-list-footer-urgent');
+    event.target.closest('.task-card-footer').classList.remove('footer-urgent');
   }
 }

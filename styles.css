@@ -15,9 +15,7 @@
   --border-radius: 5px;
 }
 
-/* --------------------- */
 /* ----- Basic Setup ----- */
-/* --------------------- */
 * {
   box-sizing: border-box;
   font-family: Lato, Arial, sans-serif;
@@ -34,9 +32,7 @@ html {
   width: 20px;
 }
 
-/* --------------------- */
 /* ----- Header ----- */
-/* --------------------- */
 .header-container {
   display: flex;
   align-items: center;
@@ -70,9 +66,7 @@ html {
   outline: none;
 }
 
-/* --------------------- */
 /* ----- Main ----- */
-/* --------------------- */
 .main-container {
   display: flex;
   width: 100%;
@@ -93,9 +87,7 @@ html {
   background-color: var(--main-light);
 }
 
-/* --------------------- */
 /* ----- Form ----- */
-/* --------------------- */
 form,
 .title-container,
 .text-container {
@@ -161,9 +153,6 @@ form,
   transition: background-color 1s;
 }
 
-/* --------------------- */
-/* ----- Tasks ----- */
-/* --------------------- */
 /* ----- Create New Task Message ----- */
 .message {
   font-size: 400%;
@@ -188,7 +177,7 @@ form,
   margin: 30px;
 }
 
-.todo-wrapper-urgent {
+.urgent {
   background-color: var(--urgent-card-background);
   border: 2px solid var(--urgent-card-border);
 }
@@ -207,7 +196,7 @@ form,
 }
 
 /* ----- Task List ----- */
-.task-list-wrapper {
+.tasks {
   padding: 10px;
 }
 
@@ -246,7 +235,7 @@ form,
   border-top: 2px solid var(--card-border);
 }
 
-.task-list-footer-urgent {
+.footer-urgent {
   border-top: 2px solid var(--urgent-card-border);
 }
 
@@ -269,9 +258,7 @@ form,
   color: var(--urgent-card-accent);
 }
 
-/* --------------------- */
-/* ----- Helper ----- */
-/* --------------------- */
+/* ----- Dom ----- */
 .hide {
   display: none;
 }
