@@ -285,10 +285,11 @@ function checkIfToDoFinished(event) {
     }
   }
   if (checkCounter == tasks.length) {
-    return true;
+    toDo.completed = true;
   } else {
-    return false;
+    toDo.completed = false;
   }
+  debugger;
 }
 
 function deleteToDoData(event) {

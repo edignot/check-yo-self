@@ -4,6 +4,7 @@ class ToDo {
     this.tasks = tasks || [];
     this.id = id || Date.now();
     this.urgent = urgent || false;
+    this.completed = false;
   }
 
   saveToStorage(toDo) {
