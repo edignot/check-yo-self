@@ -147,7 +147,13 @@ function getToDo() {
     var toDoArray = getLocalStorage();
     for (var i = 0; i < toDoArray.length; i++) {
       var toDo = new ToDo(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent);
-      displayToDo(toDo);
+      if (toDoArray[i].urgent) {
+        displayUrgentToDo(toDo);
+      }
+
+      if (!toDoArray[i].urgent) {
+        displayToDo(toDo);
+      }
     }
   }
 }
@@ -184,6 +190,38 @@ function displayToDo(toDo) {
   clearAll();
 }
 
+function displayUrgentToDo(toDo) {
+  message.classList.add('hide');
+  toDoContainer.insertAdjacentHTML('afterbegin', `
+<section class="todo-wrapper urgent">
+  <p class="task-card-title">${toDo.title}</p>
+  <div class="tasks" id="${toDo.id}">
+  </div>
+  <div class="task-card-footer footer-urgent" id="${toDo.id}">
+    <div class="urgent-img-wrapper">
+      <img src="img/urgent-active.svg" alt="urgent" class="urgent-img img">
+      <p class="urgent-text">URGENT</p>
+    </div>
+    <div class="delete-img-wrapper">
+      <img src="img/delete.svg" alt="delete" class="delete-todo-img img">
+      <p class="delete-text">DELETE</p>
+    </div>
+  </div>
+</section>
+`);
+  var task = document.getElementById(`${toDo.id}`);
+  for (var i = 0; i < toDo.tasks.length; i++) {
+    task.innerHTML += `
+  <div class="task-todo" id="${toDo.tasks[i].id}">
+    <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
+    <p>${toDo.tasks[i].title}</p>
+  </div>
+  `;
+  }
+
+  clearAll();
+}
+
 function checkTaskData(event) {
   var clickId = event.target.closest('div').id;
   var toDoId = event.target.closest('.tasks').id;
@@ -195,6 +233,7 @@ function checkTaskData(event) {
       var taskUpdate = toDoUpdate.tasks.find(taskUpdate => taskUpdate.id == clickId);
       taskUpdate.checked = !taskUpdate.checked;
     }
+
     setLocatStorage(toDoArray);
   }
 }
