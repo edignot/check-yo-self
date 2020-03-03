@@ -172,7 +172,7 @@ function displayToDo(toDo) {
       <p class="urgent-text">URGENT</p>
     </div>
     <div class="delete-img-wrapper">
-      <img src="img/delete.svg" alt="delete" class="delete-todo-img img">
+      <img src="img/delete.svg" alt="delete" class="img" id="delete">
       <p class="delete-text">DELETE</p>
     </div>
   </div>
@@ -215,7 +215,7 @@ function displayUrgentToDo(toDo) {
       <p class="urgent-text">URGENT</p>
     </div>
     <div class="delete-img-wrapper">
-      <img src="img/delete.svg" alt="delete" class="delete-todo-img img" id="delete">
+      <img src="img/delete.svg" alt="delete" class="img" id="delete">
       <p class="delete-text">DELETE</p>
     </div>
   </div>
@@ -285,11 +285,11 @@ function checkIfToDoFinished(event) {
 
   if (checkCounter == tasks.length) {
     toDo.completed = true;
-    event.target.closest('.tasks').classList.add('completed');
+    event.target.closest('#todo').querySelector('#delete').classList.add('delete-todo-img');
     event.target.closest('#todo').querySelector('#delete').setAttribute('src', 'img/delete-active.svg');
   } else {
     toDo.completed = false;
-    event.target.closest('.tasks').classList.remove('completed');
+    event.target.closest('#todo').querySelector('#delete').classList.remove('delete-todo-img');
     event.target.closest('#todo').querySelector('#delete').setAttribute('src', 'img/delete.svg');
   }
 
