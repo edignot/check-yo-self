@@ -1,10 +1,9 @@
-class ToDoList {
-  debugger
-  constructor(title, tasks, id, urgent) {
+class ToDo {
+  constructor(title, tasks) {
     this.title = title;
     this.tasks = tasks || [];
-    this.id = id || Date.now();
-    this.urgent = urgent || false;
+    this.id = Date.now();
+    this.urgent = false;
   }
 
   updateTitle() {
