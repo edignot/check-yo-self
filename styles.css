@@ -184,6 +184,7 @@ form,
   color: var(--main-dark);
   border: 2px solid var(--card-border);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
 }
 
 .urgent {
@@ -269,6 +270,6 @@ form,
 button:disabled {
   opacity: 0.5;
 }
-.completed {
-  background-color:  #e2eff5;
+.closest {
+  background-color: var(--card-border);
 }

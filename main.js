@@ -162,7 +162,7 @@ function getToDo() {
 function displayToDo(toDo) {
   message.classList.add('hide');
   toDoContainer.insertAdjacentHTML('afterbegin', `
-<section class="todo-wrapper">
+<section class="todo-wrapper" id="todo">
   <p class="task-card-title">${toDo.title}</p>
   <div class="tasks" id="${toDo.id}">
   </div>
@@ -205,7 +205,7 @@ function displayToDo(toDo) {
 function displayUrgentToDo(toDo) {
   message.classList.add('hide');
   toDoContainer.insertAdjacentHTML('afterbegin', `
-<section class="todo-wrapper urgent">
+<section class="todo-wrapper urgent" id="todo">
   <p class="task-card-title">${toDo.title}</p>
   <div class="tasks" id="${toDo.id}">
   </div>
@@ -286,9 +286,11 @@ function checkIfToDoFinished(event) {
   if (checkCounter == tasks.length) {
     toDo.completed = true;
     event.target.closest('.tasks').classList.add('completed');
+    event.target.closest('#todo').querySelector('#delete').setAttribute('src', 'img/delete-active.svg');
   } else {
     toDo.completed = false;
     event.target.closest('.tasks').classList.remove('completed');
+    event.target.closest('#todo').querySelector('#delete').setAttribute('src', 'img/delete.svg');
   }
 
   setLocatStorage(toDoArray);
