@@ -64,6 +64,7 @@ function buttonClick(event) {
   if (event.target.classList.contains('checkbox-img')) {
     checkTaskData(event);
     checkTaskDom(event);
+    checkIfToDoFinished(event);
   }
 
   if (event.target.classList.contains('delete-todo-img')) {
@@ -146,7 +147,7 @@ function getToDo() {
   if (localStorage.getItem('toDoArray')) {
     var toDoArray = getLocalStorage();
     for (var i = 0; i < toDoArray.length; i++) {
-      var toDo = new ToDo(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent);
+      var toDo = new ToDo(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent, toDoArray[i].completed);
       if (toDoArray[i].urgent) {
         displayUrgentToDo(toDo);
       }
@@ -161,7 +162,7 @@ function getToDo() {
 function displayToDo(toDo) {
   message.classList.add('hide');
   toDoContainer.insertAdjacentHTML('afterbegin', `
-<section class="todo-wrapper">
+<section class="todo-wrapper" id="todo">
   <p class="task-card-title">${toDo.title}</p>
   <div class="tasks" id="${toDo.id}">
   </div>
@@ -171,7 +172,7 @@ function displayToDo(toDo) {
       <p class="urgent-text">URGENT</p>
     </div>
     <div class="delete-img-wrapper">
-      <img src="img/delete.svg" alt="delete" class="delete-todo-img img">
+      <img src="img/delete.svg" alt="delete" class="img" id="delete">
       <p class="delete-text">DELETE</p>
     </div>
   </div>
@@ -204,7 +205,7 @@ function displayToDo(toDo) {
 function displayUrgentToDo(toDo) {
   message.classList.add('hide');
   toDoContainer.insertAdjacentHTML('afterbegin', `
-<section class="todo-wrapper urgent">
+<section class="todo-wrapper urgent" id="todo">
   <p class="task-card-title">${toDo.title}</p>
   <div class="tasks" id="${toDo.id}">
   </div>
@@ -214,7 +215,7 @@ function displayUrgentToDo(toDo) {
       <p class="urgent-text">URGENT</p>
     </div>
     <div class="delete-img-wrapper">
-      <img src="img/delete.svg" alt="delete" class="delete-todo-img img">
+      <img src="img/delete.svg" alt="delete" class="img" id="delete">
       <p class="delete-text">DELETE</p>
     </div>
   </div>
@@ -268,6 +269,31 @@ function checkTaskDom(event) {
     event.target.closest('div').classList.remove('checked');
     event.target.setAttribute('src', 'img/checkbox.svg');
   }
+}
+
+function checkIfToDoFinished(event) {
+  var toDoId = event.target.closest('.tasks').id;
+  var toDoArray = getLocalStorage();
+  var toDo = toDoArray.find(toDo => toDo.id == toDoId);
+  var tasks = toDo.tasks;
+  var checkCounter = 0;
+  for (var i = 0; i < tasks.length; i++) {
+    if (tasks[i].checked) {
+      checkCounter++;
+    }
+  }
+
+  if (checkCounter == tasks.length) {
+    toDo.completed = true;
+    event.target.closest('#todo').querySelector('#delete').classList.add('delete-todo-img');
+    event.target.closest('#todo').querySelector('#delete').setAttribute('src', 'img/delete-active.svg');
+  } else {
+    toDo.completed = false;
+    event.target.closest('#todo').querySelector('#delete').classList.remove('delete-todo-img');
+    event.target.closest('#todo').querySelector('#delete').setAttribute('src', 'img/delete.svg');
+  }
+
+  setLocatStorage(toDoArray);
 }
 
 function deleteToDoData(event) {
