@@ -1,7 +1,7 @@
 class Task {
-  constructor(title) {
+  constructor(title, id) {
     this.title = title;
-    this.id = Date.now();
+    this.id = id;
     this.checked = false;
   }
 }

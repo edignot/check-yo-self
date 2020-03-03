@@ -7,7 +7,7 @@ var textInput = document.querySelector('.text-input');
 var taskBtn = document.querySelector('.task-btn');
 var toDoBtn = document.querySelector('.todo-btn');
 var clearBtn = document.querySelector('.clear-btn');
-var urgentbtn = document.querySelector('.urgent-btn');
+var urgentBtn = document.querySelector('.urgent-btn');
 var toDoContainer = document.querySelector('.todo-container');
 var message = document.querySelector('.message');
 
@@ -62,7 +62,7 @@ function buttonClick(event) {
   }
 
   if (event.target.classList.contains('checkbox-img')) {
-    // checkTaskData(event);
+    checkTaskData(event);
     checkTaskDom(event);
   }
 
@@ -85,6 +85,15 @@ function createToDoArray() {
   if (!localStorage.getItem('toDoArray')) {
     localStorage.setItem('toDoArray', JSON.stringify([]));
   }
+}
+
+function getLocalStorage() {
+  var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+  return toDoArray;
+}
+
+function setLocatStorage(toDoArray) {
+  localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
 }
 
 function displayMessage() {
@@ -135,7 +144,7 @@ function createTask(task) {
 function getToDo() {
   toDoContainer.innerText = '';
   if (localStorage.getItem('toDoArray')) {
-    var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+    var toDoArray = getLocalStorage();
     for (var i = 0; i < toDoArray.length; i++) {
       var toDo = new ToDo(toDoArray[i].title, toDoArray[i].tasks, toDoArray[i].id, toDoArray[i].urgent);
       displayToDo(toDo);
@@ -175,11 +184,20 @@ function displayToDo(toDo) {
   clearAll();
 }
 
-// function checkTaskData(event) {
-//   // var clickId = event.target.closest('div').id;
-//   // var toDoId = event.target.closest('.tasks').id;
-//   // toDo.updateTask(clickId, toDoId);
-// }
+function checkTaskData(event) {
+  var clickId = event.target.closest('div').id;
+  var toDoId = event.target.closest('.tasks').id;
+  var toDoArray = getLocalStorage();
+  for (var i = 0; i < toDoArray.length; i++) {
+    if (toDoArray[i].id == toDoId) {
+      var toDoUpdate = toDoArray[i];
+      var toDoUpdateId = toDoArray.indexOf(toDoUpdate);
+      var taskUpdate = toDoUpdate.tasks.find(taskUpdate => taskUpdate.id == clickId);
+      taskUpdate.checked = !taskUpdate.checked;
+    }
+    setLocatStorage(toDoArray);
+  }
+}
 
 function checkTaskDom(event) {
   if (!event.target.closest('div').classList.contains('checked')) {
@@ -193,11 +211,11 @@ function checkTaskDom(event) {
 
 function deleteToDoData(event) {
   var deleteId = event.target.closest('.task-card-footer').id;
-  var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+  var toDoArray = getLocalStorage();
   var toDoToDelete = toDoArray.find(toDoToDelete => toDoToDelete.id == deleteId);
   var removeToDoIndex = toDoArray.indexOf(toDoToDelete);
   toDoArray.splice(removeToDoIndex, 1);
-  localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
+  setLocatStorage(toDoArray);
 }
 
 function deleteToDoDom(event) {
@@ -206,12 +224,11 @@ function deleteToDoDom(event) {
 }
 
 function makeToDoUrgentData(event) {
-  debugger;
   var urgentId = event.target.closest('.task-card-footer').id;
-  var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
+  var toDoArray = getLocalStorage();
   var toDo = toDoArray.find(toDo => toDo.id == urgentId);
   toDo.urgent = !toDo.urgent;
-  localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
+  setLocatStorage(toDoArray);
 }
 
 function makeToDoUrgentDom(event) {
