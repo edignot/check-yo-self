@@ -188,11 +188,7 @@ form,
   padding: 10px;
   font-size: 120%;
   font-weight: 700;
-  border-bottom: 2px solid var(--card-border);
-}
-
-.task-card-title-urgent {
-  border-bottom: 2px solid var(--urgent-card-border);
+  border-bottom: 1px solid var(--urgent);
 }
 
 /* ----- Task List ----- */
@@ -232,11 +228,7 @@ form,
   padding: 10px;
   justify-content: space-between;
   font-size: 50%;
-  border-top: 2px solid var(--card-border);
-}
-
-.footer-urgent {
-  border-top: 2px solid var(--urgent-card-border);
+  border-top: 1px solid var(--urgent);
 }
 
 .delete-img-wrapper,

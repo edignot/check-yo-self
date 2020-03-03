@@ -179,12 +179,23 @@ function displayToDo(toDo) {
 `);
   var task = document.getElementById(`${toDo.id}`);
   for (var i = 0; i < toDo.tasks.length; i++) {
-    task.innerHTML += `
+    if (toDo.tasks[i].checked) {
+      task.innerHTML += `
+  <div class="task-todo checked" id="${toDo.tasks[i].id}">
+    <img src="img/checkbox-active.svg" alt="checkbox" class="checkbox-img img">
+    <p>${toDo.tasks[i].title}</p>
+  </div>
+  `;
+    }
+
+    if (!toDo.tasks[i].checked) {
+      task.innerHTML += `
   <div class="task-todo" id="${toDo.tasks[i].id}">
     <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
     <p>${toDo.tasks[i].title}</p>
   </div>
   `;
+    }
   }
 
   clearAll();
@@ -197,7 +208,7 @@ function displayUrgentToDo(toDo) {
   <p class="task-card-title">${toDo.title}</p>
   <div class="tasks" id="${toDo.id}">
   </div>
-  <div class="task-card-footer footer-urgent" id="${toDo.id}">
+  <div class="task-card-footer" id="${toDo.id}">
     <div class="urgent-img-wrapper">
       <img src="img/urgent-active.svg" alt="urgent" class="urgent-img img">
       <p class="urgent-text">URGENT</p>
@@ -211,12 +222,23 @@ function displayUrgentToDo(toDo) {
 `);
   var task = document.getElementById(`${toDo.id}`);
   for (var i = 0; i < toDo.tasks.length; i++) {
-    task.innerHTML += `
+    if (toDo.tasks[i].checked) {
+      task.innerHTML += `
+  <div class="task-todo checked" id="${toDo.tasks[i].id}">
+    <img src="img/checkbox-active.svg" alt="checkbox" class="checkbox-img img">
+    <p>${toDo.tasks[i].title}</p>
+  </div>
+  `;
+    }
+
+    if (!toDo.tasks[i].checked) {
+      task.innerHTML += `
   <div class="task-todo" id="${toDo.tasks[i].id}">
     <img src="img/checkbox.svg" alt="checkbox" class="checkbox-img img">
     <p>${toDo.tasks[i].title}</p>
   </div>
   `;
+    }
   }
 
   clearAll();
@@ -274,10 +296,8 @@ function makeToDoUrgentDom(event) {
   if (!event.target.closest('section').classList.contains('urgent')) {
     event.target.closest('section').classList.add('urgent');
     event.target.setAttribute('src', 'img/urgent-active.svg');
-    event.target.closest('.task-card-footer').classList.add('footer-urgent');
   } else if (event.target.closest('section').classList.contains('urgent')) {
     event.target.closest('section').classList.remove('urgent');
     event.target.setAttribute('src', 'img/urgent.svg');
-    event.target.closest('.task-card-footer').classList.remove('footer-urgent');
   }
 }
