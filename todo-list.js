@@ -1,9 +1,9 @@
 class ToDo {
-  constructor(title, tasks) {
+  constructor(title, tasks, id, urgent) {
     this.title = title;
     this.tasks = tasks || [];
-    this.id = Date.now();
-    this.urgent = false;
+    this.id = id || Date.now();
+    this.urgent = urgent || false;
   }
 
   updateTitle() {
@@ -17,25 +17,6 @@ class ToDo {
   saveToStorage(toDo) {
     var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
     toDoArray.push(toDo);
-    localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
-  }
-
-
-
-
-
-  deleteFromStorage(index) {
-    var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
-    var toDoToDelete = toDoArray.find(toDoToDelete => toDoToDelete.id == index);
-    var removeToDoId = toDoArray.indexOf(toDoToDelete);
-    toDoArray.splice(removeToDoId, 1);
-    localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
-  }
-
-  updateToDo(id) {
-    var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
-    var toDo = toDoArray.find(toDo => toDo.id == id);
-    toDo.urgent = true;
     localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
   }
 
