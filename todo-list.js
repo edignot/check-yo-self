@@ -20,6 +20,10 @@ class ToDo {
     localStorage.setItem('toDoArray', JSON.stringify(toDoArray));
   }
 
+
+
+
+
   deleteFromStorage(index) {
     var toDoArray = JSON.parse(localStorage.getItem('toDoArray'));
     var toDoToDelete = toDoArray.find(toDoToDelete => toDoToDelete.id == index);
