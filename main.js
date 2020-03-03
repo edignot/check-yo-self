@@ -285,8 +285,9 @@ function checkIfToDoFinished(event) {
     }
   }
   if (checkCounter == tasks.length) {
-    // event.target.setAttribute('src', 'img/delete-active.svg');
-    alert('delete');
+    return true;
+  } else {
+    return false;
   }
 }
 
