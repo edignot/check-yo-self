@@ -11,6 +11,7 @@ var urgentBtn = document.querySelector('.urgent-btn');
 var toDoContainer = document.querySelector('.todo-container');
 var message = document.querySelector('.message');
 var notFoundMessage = document.querySelector('.not-found');
+var noUrgentMessage = document.querySelector('.not-urgent');
 
 window.addEventListener('load', pageLoad);
 body.addEventListener('keyup', buttonStatus);
@@ -141,6 +142,7 @@ function clearAll() {
   searchInput.value = '';
   taskContainer.innerText = '';
   notFoundMessage.classList.add('hide');
+  noUrgentMessage.classList.add('hide');
 }
 
 function saveToDo() {
@@ -152,6 +154,7 @@ function saveToDo() {
   if (toDo.tasks.length == 0) {
     toDo.completed = true;
   }
+
   toDo.saveToStorage(toDo);
 }
 
@@ -178,7 +181,6 @@ function getToDo() {
       }
     }
   }
-  // urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function displayToDo(toDo) {
@@ -440,6 +442,7 @@ function makeToDoUrgentDom(event) {
 }
 
 function filterByUrgency() {
+  noUrgentMessage.classList.add('hide');
   toDoContainer.innerText = '';
   var toDoArray = getLocalStorage();
   for (var i = 0; i < toDoArray.length; i++) {
@@ -452,9 +455,18 @@ function filterByUrgency() {
         displayUrgentToDo(toDoArray[i]);
       }
     }
+
   }
-  displayMessage();
+
+  displayNoUrgent();
   urgentBtn.setAttribute('disabled', 'disabled');
+}
+
+function displayNoUrgent() {
+  if (toDoContainer.innerText === '') {
+    noUrgentMessage.classList.remove('hide');
+    urgentBtn.setAttribute('disabled', 'disabled');
+  }
 }
 
 function searchByTitle() {
@@ -463,15 +475,18 @@ function searchByTitle() {
   var toDoArray = getLocalStorage();
   for (var i = 0; i < toDoArray.length; i++) {
     if (toDoArray[i].title == searchInput.value) {
-      if (toDoArray[i].completed) {
+      if (toDoArray[i].completed && !toDoArray[i].urgent) {
+        displayCompletedToDo(toDoArray[i]);
+      } else if (toDoArray[i].completed && toDoArray[i].urgent) {
         displayUrgentCompletedToDo(toDoArray[i]);
-      }
-
-      if (!toDoArray[i].completed) {
+      } else if (toDoArray[i].urgent) {
         displayUrgentToDo(toDoArray[i]);
+      } else if (!toDoArray[i].urgent) {
+        displayToDo(toDoArray[i]);
       }
     }
   }
+
   displayNotFound();
   searchBtn.setAttribute('disabled', 'disabled');
   clearBtn.removeAttribute('disabled', 'disabled');

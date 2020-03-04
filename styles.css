@@ -166,6 +166,7 @@ form,
 
 /* ----- Create New Task Message ----- */
 .not-found,
+.not-urgent,
 .message {
   font-size: 400%;
   text-align: center;
@@ -174,6 +175,11 @@ form,
 
 .not-found {
   color: var(--urgent);
+  opacity: 0.3;
+}
+
+.not-urgent {
+  color: var(--accent);
   opacity: 0.3;
 }
 
