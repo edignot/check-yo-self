@@ -164,7 +164,7 @@ form,
   transition: background-color 1s;
 }
 
-/* ----- Create New Task Message ----- */
+/* ----- Messages ----- */
 .not-found,
 .not-urgent,
 .message {
