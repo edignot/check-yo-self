@@ -81,7 +81,7 @@ function buttonClick(event) {
   }
 
   if (event.target.closest('.urgent-btn')) {
-    alert('filter by urgency');
+    filterByUrgency();
   }
 }
 
@@ -416,5 +416,21 @@ function makeToDoUrgentDom(event) {
   } else if (event.target.closest('section').classList.contains('urgent')) {
     event.target.closest('section').classList.remove('urgent');
     event.target.setAttribute('src', 'img/urgent.svg');
+  }
+}
+
+function filterByUrgency() {
+  toDoContainer.innerText = '';
+  var toDoArray = getLocalStorage();
+  for (var i = 0; i < toDoArray.length; i++) {
+    if (toDoArray[i].urgent == true) {
+      if (toDoArray[i].completed) {
+        displayUrgentCompletedToDo(toDoArray[i]);
+      }
+
+      if (!toDoArray[i].completed) {
+        displayUrgentToDo(toDoArray[i]);
+      }
+    }
   }
 }
