@@ -81,7 +81,7 @@ function buttonClick(event) {
     makeToDoUrgentDom(event);
   }
 
-  if (event.target.closest('.urgent-btn')) {
+  if (event.target.closest('.urgent-btn') && toDoContainer.innerText !== '') {
     filterByUrgency();
     clearBtn.removeAttribute('disabled', 'disabled');
   }
