@@ -10,6 +10,7 @@ var clearBtn = document.querySelector('.clear-btn');
 var urgentBtn = document.querySelector('.urgent-btn');
 var toDoContainer = document.querySelector('.todo-container');
 var message = document.querySelector('.message');
+var notFoundMessage = document.querySelector('.not-found');
 
 window.addEventListener('load', pageLoad);
 body.addEventListener('keyup', buttonStatus);
@@ -139,6 +140,7 @@ function clearAll() {
   textInput.value = '';
   searchInput.value = '';
   taskContainer.innerText = '';
+  notFoundMessage.classList.add('hide');
 }
 
 function saveToDo() {
@@ -469,7 +471,13 @@ function searchByTitle() {
       }
     }
   }
-  displayMessage();
+  displayNotFound();
   searchBtn.setAttribute('disabled', 'disabled');
   clearBtn.removeAttribute('disabled', 'disabled');
+}
+
+function displayNotFound() {
+  if (toDoContainer.innerText === '') {
+    notFoundMessage.classList.remove('hide');
+  }
 }
