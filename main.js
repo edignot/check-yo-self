@@ -12,7 +12,7 @@ var toDoContainer = document.querySelector('.todo-container');
 var message = document.querySelector('.message');
 
 window.addEventListener('load', pageLoad);
-body.addEventListener('input', buttonStatus);
+body.addEventListener('keyup', buttonStatus);
 body.addEventListener('click', buttonClick);
 
 function pageLoad() {
@@ -24,9 +24,11 @@ function pageLoad() {
 function buttonStatus() {
   if (textInput.value !== '') {
     taskBtn.removeAttribute('disabled', 'disabled');
+  } else {
+    taskBtn.setAttribute('disabled', 'disabled');
   }
 
-  if (titleInput.value !== '') {
+  if (titleInput.value !== '' && taskContainer.innerHTML !== '') {
     toDoBtn.removeAttribute('disabled', 'disabled');
   }
 
@@ -58,6 +60,7 @@ function buttonClick(event) {
   if (event.target.closest('.todo-btn')) {
     saveToDo();
     getToDo();
+    clearBtn.setAttribute('disabled', 'disabled');
     toDoBtn.setAttribute('disabled', 'disabled');
   }
 
