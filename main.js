@@ -88,6 +88,10 @@ function buttonClick(event) {
     filterByUrgency();
     clearBtn.removeAttribute('disabled', 'disabled');
   }
+
+  if (event.target.classList.contains('search-btn')) {
+    searchByTitle();
+  }
 }
 
 function createToDoArray() {
@@ -133,6 +137,7 @@ function clearAll() {
   getToDo();
   titleInput.value = '';
   textInput.value = '';
+  searchInput.value = '';
   taskContainer.innerText = '';
 }
 
@@ -448,4 +453,23 @@ function filterByUrgency() {
   }
   displayMessage();
   urgentBtn.setAttribute('disabled', 'disabled');
+}
+
+function searchByTitle() {
+  toDoContainer.innerText = '';
+  var toDoArray = getLocalStorage();
+  for (var i = 0; i < toDoArray.length; i++) {
+    if (toDoArray[i].title == searchInput.value) {
+      if (toDoArray[i].completed) {
+        displayUrgentCompletedToDo(toDoArray[i]);
+      }
+
+      if (!toDoArray[i].completed) {
+        displayUrgentToDo(toDoArray[i]);
+      }
+    }
+  }
+  displayMessage();
+  searchBtn.setAttribute('disabled', 'disabled');
+  clearBtn.removeAttribute('disabled', 'disabled');
 }
