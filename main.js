@@ -28,7 +28,7 @@ function buttonStatus() {
     taskBtn.setAttribute('disabled', 'disabled');
   }
 
-  if (titleInput.value !== '' && taskContainer.innerHTML !== '') {
+  if (titleInput.value !== '') {
     toDoBtn.removeAttribute('disabled', 'disabled');
   }
 
@@ -60,6 +60,7 @@ function buttonClick(event) {
   if (event.target.closest('.todo-btn')) {
     saveToDo();
     getToDo();
+    clearAll();
     clearBtn.setAttribute('disabled', 'disabled');
     toDoBtn.setAttribute('disabled', 'disabled');
   }
@@ -82,6 +83,7 @@ function buttonClick(event) {
 
   if (event.target.closest('.urgent-btn')) {
     filterByUrgency();
+    clearBtn.removeAttribute('disabled', 'disabled');
   }
 }
 
@@ -125,6 +127,8 @@ function removeTask(event) {
 }
 
 function clearAll() {
+  debugger;
+  getToDo();
   titleInput.value = '';
   textInput.value = '';
   taskContainer.innerText = '';
@@ -203,8 +207,6 @@ function displayToDo(toDo) {
   `;
     }
   }
-
-  clearAll();
 }
 
 function displayUrgentToDo(toDo) {
@@ -246,8 +248,6 @@ function displayUrgentToDo(toDo) {
   `;
     }
   }
-
-  clearAll();
 }
 
 function displayCompletedToDo(toDo) {
@@ -289,8 +289,6 @@ function displayCompletedToDo(toDo) {
   `;
     }
   }
-
-  clearAll();
 }
 
 function displayUrgentCompletedToDo(toDo) {
@@ -332,8 +330,6 @@ function displayUrgentCompletedToDo(toDo) {
   `;
     }
   }
-
-  clearAll();
 }
 
 function checkTaskData(event) {
