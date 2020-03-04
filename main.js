@@ -142,6 +142,9 @@ function saveToDo() {
   allTasks.forEach(task => tasks.push(createTask(task)));
   var title = titleInput.value;
   var toDo = new ToDo(title, tasks);
+  if (toDo.tasks.length == 0) {
+    toDo.completed = true;
+  }
   toDo.saveToStorage(toDo);
 }
 
@@ -406,6 +409,9 @@ function deleteToDoData(event) {
 function deleteToDoDom(event) {
   event.target.closest('section').remove();
   displayMessage();
+  if (toDoContainer.innerText == '') {
+    urgentBtn.setAttribute('disabled', 'disabled');
+  }
 }
 
 function makeToDoUrgentData(event) {
