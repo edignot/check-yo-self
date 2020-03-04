@@ -12,10 +12,11 @@ var toDoContainer = document.querySelector('.todo-container');
 var message = document.querySelector('.message');
 
 window.addEventListener('load', pageLoad);
-body.addEventListener('input', buttonStatus);
+body.addEventListener('keyup', buttonStatus);
 body.addEventListener('click', buttonClick);
 
 function pageLoad() {
+  urgentBtn.setAttribute('disabled', 'disabled');
   createToDoArray();
   displayMessage();
   getToDo();
@@ -24,6 +25,8 @@ function pageLoad() {
 function buttonStatus() {
   if (textInput.value !== '') {
     taskBtn.removeAttribute('disabled', 'disabled');
+  } else {
+    taskBtn.setAttribute('disabled', 'disabled');
   }
 
   if (titleInput.value !== '') {
@@ -36,6 +39,8 @@ function buttonStatus() {
 
   if (searchInput.value !== '') {
     searchBtn.removeAttribute('disabled', 'disabled');
+  } else {
+    searchBtn.setAttribute('disabled', 'disabled');
   }
 }
 
@@ -58,6 +63,8 @@ function buttonClick(event) {
   if (event.target.closest('.todo-btn')) {
     saveToDo();
     getToDo();
+    clearAll();
+    clearBtn.setAttribute('disabled', 'disabled');
     toDoBtn.setAttribute('disabled', 'disabled');
   }
 
@@ -77,8 +84,9 @@ function buttonClick(event) {
     makeToDoUrgentDom(event);
   }
 
-  if (event.target.closest('.urgent-btn')) {
-    alert('filter by urgency');
+  if (event.target.closest('.urgent-btn') && toDoContainer.innerText !== '') {
+    filterByUrgency();
+    clearBtn.removeAttribute('disabled', 'disabled');
   }
 }
 
@@ -122,6 +130,7 @@ function removeTask(event) {
 }
 
 function clearAll() {
+  getToDo();
   titleInput.value = '';
   textInput.value = '';
   taskContainer.innerText = '';
@@ -159,6 +168,7 @@ function getToDo() {
       }
     }
   }
+  // urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function displayToDo(toDo) {
@@ -201,7 +211,7 @@ function displayToDo(toDo) {
     }
   }
 
-  clearAll();
+  urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function displayUrgentToDo(toDo) {
@@ -244,7 +254,7 @@ function displayUrgentToDo(toDo) {
     }
   }
 
-  clearAll();
+  urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function displayCompletedToDo(toDo) {
@@ -287,7 +297,7 @@ function displayCompletedToDo(toDo) {
     }
   }
 
-  clearAll();
+  urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function displayUrgentCompletedToDo(toDo) {
@@ -330,7 +340,7 @@ function displayUrgentCompletedToDo(toDo) {
     }
   }
 
-  clearAll();
+  urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function checkTaskData(event) {
@@ -414,4 +424,22 @@ function makeToDoUrgentDom(event) {
     event.target.closest('section').classList.remove('urgent');
     event.target.setAttribute('src', 'img/urgent.svg');
   }
+}
+
+function filterByUrgency() {
+  toDoContainer.innerText = '';
+  var toDoArray = getLocalStorage();
+  for (var i = 0; i < toDoArray.length; i++) {
+    if (toDoArray[i].urgent == true) {
+      if (toDoArray[i].completed) {
+        displayUrgentCompletedToDo(toDoArray[i]);
+      }
+
+      if (!toDoArray[i].completed) {
+        displayUrgentToDo(toDoArray[i]);
+      }
+    }
+  }
+  displayMessage();
+  urgentBtn.setAttribute('disabled', 'disabled');
 }
