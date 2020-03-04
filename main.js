@@ -458,6 +458,7 @@ function filterByUrgency() {
 }
 
 function searchByTitle() {
+  notFoundMessage.classList.add('hide');
   toDoContainer.innerText = '';
   var toDoArray = getLocalStorage();
   for (var i = 0; i < toDoArray.length; i++) {
@@ -479,5 +480,6 @@ function searchByTitle() {
 function displayNotFound() {
   if (toDoContainer.innerText === '') {
     notFoundMessage.classList.remove('hide');
+    urgentBtn.setAttribute('disabled', 'disabled');
   }
 }
