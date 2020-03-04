@@ -165,10 +165,16 @@ form,
 }
 
 /* ----- Create New Task Message ----- */
+.not-found,
 .message {
   font-size: 400%;
   text-align: center;
   color: var(--card-border)
+}
+
+.not-found {
+  color: var(--urgent);
+  opacity: 0.3;
 }
 
 /* ----- Task Card Container ----- */
