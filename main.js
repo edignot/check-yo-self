@@ -90,7 +90,7 @@ function buttonClick(event) {
     clearBtn.removeAttribute('disabled', 'disabled');
   }
 
-  if (event.target.classList.contains('search-btn')) {
+  if (event.target.closest('.search-btn')) {
     searchByTitle();
   }
 }
