@@ -159,6 +159,11 @@ form,
   transition: background-color 1s;
 }
 
+.urgent-btn:hover {
+  background-color: var(--urgent-card-accent);
+  transition: background-color 1s;
+}
+
 /* ----- Create New Task Message ----- */
 .message {
   font-size: 400%;

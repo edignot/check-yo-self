@@ -16,6 +16,7 @@ body.addEventListener('keyup', buttonStatus);
 body.addEventListener('click', buttonClick);
 
 function pageLoad() {
+  urgentBtn.setAttribute('disabled', 'disabled');
   createToDoArray();
   displayMessage();
   getToDo();
@@ -38,6 +39,8 @@ function buttonStatus() {
 
   if (searchInput.value !== '') {
     searchBtn.removeAttribute('disabled', 'disabled');
+  } else {
+    searchBtn.setAttribute('disabled', 'disabled');
   }
 }
 
@@ -127,7 +130,6 @@ function removeTask(event) {
 }
 
 function clearAll() {
-  debugger;
   getToDo();
   titleInput.value = '';
   textInput.value = '';
@@ -166,6 +168,7 @@ function getToDo() {
       }
     }
   }
+  // urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function displayToDo(toDo) {
@@ -207,6 +210,8 @@ function displayToDo(toDo) {
   `;
     }
   }
+
+  urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function displayUrgentToDo(toDo) {
@@ -248,6 +253,8 @@ function displayUrgentToDo(toDo) {
   `;
     }
   }
+
+  urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function displayCompletedToDo(toDo) {
@@ -289,6 +296,8 @@ function displayCompletedToDo(toDo) {
   `;
     }
   }
+
+  urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function displayUrgentCompletedToDo(toDo) {
@@ -330,6 +339,8 @@ function displayUrgentCompletedToDo(toDo) {
   `;
     }
   }
+
+  urgentBtn.removeAttribute('disabled', 'disabled');
 }
 
 function checkTaskData(event) {
@@ -429,4 +440,6 @@ function filterByUrgency() {
       }
     }
   }
+  displayMessage();
+  urgentBtn.setAttribute('disabled', 'disabled');
 }
