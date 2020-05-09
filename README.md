@@ -3,6 +3,8 @@
 ### Abstract : 
 This was a solo project during Module 1 at [Turing School of Software & Design](https://turing.io/).
 
+### User Interaction :
+![1](/check.gif)
 ---
 ### User Story : 
 #### User should be able to :
