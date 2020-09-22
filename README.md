@@ -2,10 +2,10 @@
 
 ## https://checkyoselftodo.netlify.app/
 
+![check yo self](/checkyoself.jpg)
+
 ### About : 
 This was a solo project during Module 1 at [Turing School of Software & Design](https://turing.io/).
-
-![check yo self](/checkyoself.jpg)
 
 ### User Interaction :
 ![1](/check.gif)
