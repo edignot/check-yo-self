@@ -4,14 +4,14 @@
 
 ![check yo self](/checkyoself.jpg)
 
-### About : 
+### About 
 This was a solo project during Module 1 at [Turing School of Software & Design](https://turing.io/).
 
-### User Interaction :
+### User Interaction
 ![1](/check.gif)
 ---
-### User Story : 
-#### User should be able to :
+### User Story 
+#### User should be able to 
 #### 1. See info message if there are no Tasks created
 ![1](/check1.png)
 ---
@@ -28,7 +28,7 @@ This was a solo project during Module 1 at [Turing School of Software & Design](
 ![5](/check5.png)
 ---
 
-### Technologies : 
+### Built with
 - HTML
 - CSS
 - JavaScript
