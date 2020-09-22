@@ -33,3 +33,23 @@ This was a solo project during Module 1 at [Turing School of Software & Design](
 - CSS
 - JavaScript
 - LocalStorage
+
+# Flash Cards Beyonce
+
+## https://beyonceflashcardsgame.netlify.app/
+
+![flash cards game](/flashcardgame.jpg)
+
+### About 
+This was a team project during Module 1 at [Turing School of Software & Design](https://turing.io/).
+
+### Built with
+- HTML
+- CSS
+- JavaScript
+- LocalStorage
+
+### Contributors
+- [Edita Ignot](https://github.com/edignot)
+
+
